@@ -179,7 +179,7 @@ class Categories{
 
     public function find_all()
     {
-        $query = "SELECT * FROM ".$this->schema.".".$this->table_name." "; 
+        $query = "SELECT * FROM ".$this->table_name." "; 
         $query .= "ORDER BY id DESC";
 
         // prepare statement
@@ -187,13 +187,21 @@ class Categories{
 
         // execute statemrent 
         if($stmt->execute()){
-            return $stmt;
+            // fetch data
+            $category_object = array();
+            $count = $stmt->rowCount();
+            if($count > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $category_object[] = $row;
+                }
+            }
+            return $category_object;
         }
     }
     
     public function find_category_by_id($id=0)
     {
-        $query = "SELECT * FROM ".$this->schema.".".$this->table_name." "; 
+        $query = "SELECT * FROM ".$this->table_name." "; 
         $query .= "WHERE id = :id LIMIT 1";
 
         //Prepare statement 

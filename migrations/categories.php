@@ -18,7 +18,7 @@ class Categories_migration{
     public function create()
     {
         $query = "CREATE TABLE IF NOT EXISTS ".$this->table_name."(";
-        $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY, ";
+        $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
         $query .= "category_name VARCHAR(100) NOT NULL, ";
         $query .= "category_image VARCHAR(200) NOT NULL, ";
         $query .= "created_date TIMESTAMP NULL DEFAULT NULL, ";

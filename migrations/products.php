@@ -19,7 +19,7 @@ class Products_migration{
     public function create()
     {
         $query = "CREATE TABLE IF NOT EXISTS ".$this->table_name."(";
-        $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY, ";
+        $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
         $query .= "product_name VARCHAR(100) NOT NULL, ";
         $query .= "product_image VARCHAR(200) NOT NULL, ";
         $query .= "product_details VARCHAR(200) NOT NULL, ";
