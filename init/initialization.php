@@ -7,9 +7,8 @@ defined('INIT_PATH') ? null : define('INIT_PATH', SITE_ROOT.DS.'init');
 defined('MODELS_PATH') ? null : define('MODELS_PATH', SITE_ROOT.DS.'models');
 defined('VENDOR_PATH') ? null : define('VENDOR_PATH', SITE_ROOT.DS.'vendor');
 defined('PUBLIC_PATH') ? null : define('PUBLIC_PATH', SITE_ROOT.DS.'public');
+defined('MIGRATION_PATH') ? null : define('MIGRATION_PATH', SITE_ROOT.DS.'migrations');
 
-
-// $site_url = "https://homemanagement-app.herokuapp.com/";
 $site_url = "http://localhost/tadtech_ecommas/";
 
 // db connections
@@ -28,7 +27,7 @@ require_once(CONFIG_PATH.DS.'functions.php');
 // require_once(VENDOR_PATH.DS.'autoload.php');
 
 // load send mail
-// require_once(MODELS_PATH.DS.'send_mail.php');
+require_once(MODELS_PATH.DS.'categories.php');
 
 // bring in customer type
-// require_once(MODELS_PATH.DS.'customer_type.php');
+require_once(MODELS_PATH.DS.'products.php');
