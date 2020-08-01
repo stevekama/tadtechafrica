@@ -17,8 +17,18 @@ $product_categories = $categories->find_all();
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/plugins/slick-1.8.0/slick.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/responsive.css">
+    <?php if($page == "home"){ ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/main_styles.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/responsive.css">
+    <?php } ?>
+    <?php if($page == "shop"){ ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/shop_styles.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/shop_responsive.css">
+    <?php } ?>
+    <?php if($page == "contact"){ ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/contact_styles.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/contact_responsive.css">
+    <?php } ?>
 </head>
 <body>
     <div class="super_container">
@@ -57,7 +67,6 @@ $product_categories = $categories->find_all();
             <div class="header_main">
                 <div class="container">
                     <div class="row">
-
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-3 col-3 order-1">
                             <div class="logo_container">
@@ -111,8 +120,10 @@ $product_categories = $categories->find_all();
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
+
             <?php include('navbar.php'); ?>
         </header>

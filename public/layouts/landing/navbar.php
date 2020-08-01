@@ -7,7 +7,9 @@
                     <!-- Categories Menu -->
                     <div class="cat_menu_container">
                         <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
-                            <div class="cat_burger"><span></span><span></span><span></span></div>
+                            <div class="cat_burger">
+                                <span></span><span></span><span></span>
+                            </div>
                             <div class="cat_menu_text">categories</div>
                         </div>
 
@@ -69,11 +71,12 @@
                         <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
                             <div class="menu_burger">
                                 <div class="menu_trigger_text">menu</div>
-                                <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+                                <div class="cat_burger menu_burger_inner">
+                                    <span></span><span></span><span></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -93,11 +96,11 @@
                             <input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
                         </form>
                     </div>
-                    <ul class="page_menu_nav">
-                       
-                        
+                    <ul class="page_menu_nav"> 
                         <li class="page_menu_item">
-                            <a href="<?php echo base_url(); ?>">TadTech<i class="fa fa-angle-down"></i></a>
+                            <a href="<?php echo base_url(); ?>">
+                                TadTech<i class="fa fa-angle-down"></i>
+                            </a>
                         </li>
                         <li class="page_menu_item has-children">
                             <a href="#">Super Deals<i class="fa fa-angle-down"></i></a>

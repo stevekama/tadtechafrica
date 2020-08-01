@@ -1677,6 +1677,8 @@ select option
 	display: block;
 	position: relative;
 	max-width: 100%;
+	width: 115px;
+	object-fit: contain;
 }
 .product_content
 {

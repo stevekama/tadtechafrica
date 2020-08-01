@@ -11,6 +11,7 @@ class Products{
 
     // table properties
     public $id;
+    public $category_id;
     public $product_name;
     public $product_image;
     public $product_details;
@@ -32,17 +33,20 @@ class Products{
         $query = "";
         if(empty($this->id)){
             $query .= "INSERT INTO ".$this->table_name."(";
-            $query .= "category_name, category_image, "; 
-            $query .= "created_date, edited_date";
+            $query .= "category_id = :category_id, product_name, product_image, product_details, ";
+            $query .= "product_description, product_price, product_units, ";
+            $query .= "product_status, created_date, edited_date";
             $query .= ")VALUES(";
-            $query .= ":category_name, :category_image, "; 
-            $query .= ":created_date, :edited_date";
+            $query .= ":product_name, :product_image, :product_details, ";
+            $query .= ":product_description, :product_price, :product_units, ";
+            $query .= ":product_status, :created_date, :edited_date";
             $query .= ")";
 
         }else{
             $query .= "UPDATE ".$this->schema.".".$this->table_name." SET ";
-            $query .= "category_name = :category_name, category_image = :category_image, "; 
-            $query .= "created_date = :created_date, edited_date = edited_date ";
+            $query .= "category_id = :category_id, product_name = :product_name, product_image = :product_image, product_details = :product_details, ";
+            $query .= "product_description = :product_description, product_price = :product_price, product_units = :product_units, ";
+            $query .= "product_status = :product_status, created_date = :created_date, edited_date = :edited_date ";
             $query .= "WHERE id = :id";
         }
 
@@ -53,8 +57,14 @@ class Products{
         if(!empty($this->id)){
             $this->id = htmlentities($this->id);
         }
-        $this->category_name = htmlentities($this->category_name);
-        $this->category_image = htmlentities($this->category_image);
+        $this->category_id = htmlentities($this->category_id);
+        $this->product_name = htmlentities($this->product_name);
+        $this->product_image = htmlentities($this->product_image);
+        $this->product_details = htmlentities($this->product_details);
+        $this->product_description = htmlentities($this->product_description);
+        $this->product_price = htmlentities($this->product_price);
+        $this->product_units = htmlentities($this->product_units);
+        $this->product_status = htmlentities($this->product_status);
         $this->created_date = htmlentities($this->created_date);
         $this->edited_date = htmlentities($this->edited_date);
  
@@ -62,8 +72,14 @@ class Products{
         if(!empty($this->id)){
             $stmt->bindParam(':id', $this->id);
         }
-        $stmt->bindParam(':category_name', $this->category_name);
-        $stmt->bindParam(':category_image', $this->category_image);
+        $stmt->bindParam(':category_id', $this->category_id);
+        $stmt->bindParam(':product_name', $this->product_name);
+        $stmt->bindParam(':product_image', $this->product_image);
+        $stmt->bindParam(':product_details', $this->product_details);
+        $stmt->bindParam(':product_description', $this->product_description);
+        $stmt->bindParam(':product_price', $this->product_price);
+        $stmt->bindParam(':product_units', $this->product_units);
+        $stmt->bindParam(':product_status', $this->product_status);
         $stmt->bindParam(':created_date', $this->created_date);
         $stmt->bindParam(':edited_date', $this->edited_date);
 
@@ -79,7 +95,7 @@ class Products{
     // save with category image
     private $temp_path;
 
-    protected $upload_dir = "categories";
+    protected $upload_dir = "products";
 
     // store errors
     public $errors = array();
@@ -117,14 +133,14 @@ class Products{
         } else {
             // Set object attributes to the form parameters
             $this->temp_path = $file['tmp_name'];
-            $this->category_image = basename(time() . $file['name']);
+            $this->product_image = basename(time() . $file['name']);
             //Dont worry about the databaseyet
             return true;
         }
     }
 
     // save with image
-    public function save_category_image()
+    public function save_product_image()
     {
         /*
         * Make sure there are no errors
@@ -137,13 +153,13 @@ class Products{
         }
 
         //2. cant see without filename and tempt location
-        if (empty($this->category_image) || empty($this->temp_path)) {
+        if (empty($this->product_image) || empty($this->temp_path)) {
             $this->errors[] = "The file location was not available.";
             return false;
         }
 
         // 3. Determine the target_path
-        $target_path = PUBLIC_PATH . DS . 'storage' . DS . $this->upload_dir . DS . $this->category_image;
+        $target_path = PUBLIC_PATH . DS . 'storage' . DS . $this->upload_dir . DS . $this->product_image;
 
         // 4. make sure the file doesn't exist
         if (file_exists($target_path)) {
@@ -167,7 +183,7 @@ class Products{
 
     public function find_all()
     {
-        $query = "SELECT * FROM ".$this->schema.".".$this->table_name." "; 
+        $query = "SELECT * FROM ".$this->table_name." "; 
         $query .= "ORDER BY id DESC";
 
         // prepare statement
@@ -175,11 +191,18 @@ class Products{
 
         // execute statemrent 
         if($stmt->execute()){
-            return $stmt;
+            $product_object = array();
+            $count_products = $stmt->rowCount();
+            if($count_products > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $product_object[] = $row;
+                }
+            }
+            return $product_object;
         }
     }
     
-    public function find_category_by_id($id=0)
+    public function find_product_by_id($id=0)
     {
         $query = "SELECT * FROM ".$this->schema.".".$this->table_name." "; 
         $query .= "WHERE id = :id LIMIT 1";
@@ -195,5 +218,37 @@ class Products{
         }else{
             return false;
         }
+    }
+
+    public function find_products_by_category_id($category_id = 0)
+    {
+        $query = "SELECT "; 
+        $query .= "categories.category, products.product_name, products.product_image, ";
+        $query .= "products.product_details, products.product_price, products.product_status ";
+        $query .= "FROM ".$this->table_name." ";
+        $query .= "INNER JOIN categories ON products.category_id = categories.id ";
+        $query .= "WHERE products.category_id = :category_id ";
+        $query .= "ORDER BY products.id DESC";
+
+        // prepare stmt
+        $stmt = $this->conn->prepare($query);
+
+        // htmlentites
+        $category_id = htmlentities($category_id);
+
+        // execute 
+        if($stmt->execute(array('category_id'=>$category_id))){
+            $product_object = array();
+            $count_products = $stmt->rowCount();
+            if($count_products > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $product_object[] = $row;
+                }
+            }
+            return $product_object;
+        }else{
+            return false;
+        }
+
     }
 }
