@@ -108,6 +108,9 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                             <form id="registerForm" role="form">
                                 <div class="card-body">
                                     <div class="form-group">
+                                       <span id="registerAlertMessage"></span>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="registerFullNames">Full Names</label>
                                         <input type="text" name="fullnames" class="form-control" id="registerFullNames" placeholder="Enter Full Names">
                                     </div>
@@ -163,12 +166,12 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                     $('#loginSubmitBtn').html('Loading...');
                 },
                 success: function(data) {
-                    if(data.message == "errorCustomer"){
+                    if (data.message == "errorCustomer") {
                         $('#alertMessage').html('<div class="alert alert-danger">There is an error in your email and password. Please check</div>');
                         $('#loginSubmitBtn').html('error');
                         return false;
                     }
-                    if(data.message == "success"){
+                    if (data.message == "success") {
                         $('#alertMessage').html('<div class="alert alert-success">You have successfully logged in.</div>');
                         $('#loginSubmitBtn').html('success');
                         window.location.href = "<?php echo base_url(); ?>customers/index.php";
@@ -190,24 +193,30 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                     $('#registerSubmitBtn').html('Loading...');
                 },
                 success: function(data) {
-                    if(data.message == "errorCustomer"){
-                        $('#alertMessage').html('<div class="alert alert-danger">There is an error in your email and password. Please check</div>');
+                    if (data.message == "errorCustomer") {
+                        $('#registerAlertMessage').html('<div class="alert alert-danger">There is an error in your email and password. Please check</div>');
                         $('#registerSubmitBtn').html('error');
                         return false;
                     }
 
 
-                    if(data.message == "errorPassword"){
-                        $('#alertMessage').html('<div class="alert alert-danger">Password Do not match. Please check and try again..</div>');
-                        $('#registerSubmitBtn').html('error');
+                    if (data.message == "errorPassword") {
+                        $('#registerAlertMessage').html('<div class="alert alert-danger">Password Do not match. Please check and try again..</div>');
+                        $('#registerSubmitBtn').html('Error Password');
+                        return false;
+                    }
+
+                    if (data.message == "emailExists") {
+                        $('#registerAlertMessage').html('<div class="alert alert-danger">The email entered is used by another account. Please check and try again..</div>');
+                        $('#registerSubmitBtn').html('Email Error');
                         return false;
                     }
 
 
-                    if(data.message == "success"){
-                        $('#alertMessage').html('<div class="alert alert-success">Successfully created account.</div>');
+                    if (data.message == "success") {
+                        $('#alertMessage').html('<div class="alert alert-success">Successfully created account. Loggin to your account to continue...</div>');
+                        $('#registerForm')[0].reset();
                         $('#registerSubmitBtn').html('success');
-                        window.location.href = "<?php echo base_url(); ?>customers/index.php";
                     }
                 }
             });

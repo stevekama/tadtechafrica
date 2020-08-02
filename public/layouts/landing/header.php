@@ -85,7 +85,11 @@ $product_categories = $categories->find_all();
                                             <?php } ?>
                                         <?php } ?>
                                     <?php }else{ ?> 
-                                        <div><a href="#">Register / Sign in</a></div>
+                                        <div>
+                                            <a href="<?php echo base_url(); ?>landing/account.php">
+                                                Register / Sign in
+                                            </a>
+                                        </div>
                                     <?php } ?>
                                 </div>
                             </div>
