@@ -208,5 +208,8 @@
         <?php if($page == "shop"){ ?>
             <script src="<?php echo public_url(); ?>front/js/shop_custom.js"></script>    
         <?php } ?>
+        <?php if($page == "contact"){ ?>
+            <script src="<?php echo public_url(); ?>front/js/contact_custom.js"></script>    
+        <?php } ?>
     </body>
 </html>

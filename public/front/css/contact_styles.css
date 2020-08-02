@@ -667,10 +667,7 @@ section
 	line-height: 48px;
 	cursor: pointer;
 }
-.custom_dropdown_placeholder i
-{
-	
-}
+
 .custom_list
 {
 	text-align: left;
@@ -1255,6 +1252,33 @@ select option
 	font-size: 12px;
 	color: rgba(0,0,0,0.5);
 }
+/*********************************
+4.1 customer info
+*********************************/
+.customer_img{
+	width: 100%;
+	display: inline-block;
+}
+
+.customer_img img {
+	max-width: 100%;
+	margin-left:auto;
+	margin-right: auto;
+	object-fit: contain;
+}
+
+#customer_account {
+	display: none;
+}
+
+#customer_settings {
+	display: none;
+}
+
+#customer_password_settings {
+	display: none;
+}
+
 
 /*********************************
 4.1 Contact Form

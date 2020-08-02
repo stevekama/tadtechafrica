@@ -31,3 +31,6 @@ require_once(MODELS_PATH.DS.'categories.php');
 
 // bring in customer type
 require_once(MODELS_PATH.DS.'products.php');
+
+// bring in customer type
+require_once(MODELS_PATH.DS.'customers.php');

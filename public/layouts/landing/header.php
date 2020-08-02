@@ -1,7 +1,20 @@
-<?php 
+<?php
+if ($session->is_logged_in()) {
+    if ($session->check_user()) {
+        $type = "USERS";
+        $user_type = $session->user_type;
+        $user_id = $session->user_id;
+    }
+    if ($session->check_admin()) {
+        $type = "ADMIN";
+        $admin_id = $session->admin_id;
+    }
+}
+
 $categories = new Categories();
 $product_categories = $categories->find_all();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,19 +30,20 @@ $product_categories = $categories->find_all();
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/plugins/slick-1.8.0/slick.css">
-    <?php if($page == "home"){ ?>
+    <?php if ($page == "home") { ?>
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/main_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/responsive.css">
     <?php } ?>
-    <?php if($page == "shop"){ ?>
+    <?php if ($page == "shop") { ?>
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/shop_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/shop_responsive.css">
     <?php } ?>
-    <?php if($page == "contact"){ ?>
+    <?php if ($page == "contact") { ?>
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/contact_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/contact_responsive.css">
     <?php } ?>
 </head>
+
 <body>
     <div class="super_container">
         <!-- Header -->
@@ -49,13 +63,30 @@ $product_categories = $categories->find_all();
                                     <img src="<?php echo public_url(); ?>front/images/mail.png" alt="">
                                 </div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
                             </div>
+
                             <div class="top_bar_content ml-auto">
                                 <div class="top_bar_user">
                                     <div class="user_icon">
-                                        <img src="<?php echo public_url(); ?>front/images/user.svg" alt="">
+                                        <img src="<?php echo public_url(); ?>front/images/user.svg" alt="" />
                                     </div>
-                                    <div><a href="#">Register</a></div>
-                                    <div><a href="#">Sign in</a></div>
+                                    <?php if(isset($type)){ ?>
+                                        <?php 
+                                        if($type == "USERS"){
+                                            if($user_type == "CUSTOMER"){ ?>
+                                                <div>
+                                                    <?php 
+                                                    $customers = new Customers(); 
+                                                    $current_customer = $customers->find_customer_by_id($user_id);
+                                                    ?>
+                                                    <a href="<?php echo base_url(); ?>customers/index.php">
+                                                        <?php echo htmlentities($current_customer['customer_fullnames']); ?>
+                                                    </a>
+                                                </div>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    <?php }else{ ?> 
+                                        <div><a href="#">Register / Sign in</a></div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +151,7 @@ $product_categories = $categories->find_all();
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
