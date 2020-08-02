@@ -1,8 +1,22 @@
 <?php
 require_once('../init/initialization.php');
+$url = base_url().'index.php';
+if(!$session->is_logged_in()){
+    redirect_to($url);
+}
+if(!$session->check_user()){
+    $session->logout();
+    redirect_to($url);
+}
+
+if($session->user_type != "CUSTOMER"){
+    $session->logout();
+    redirect_to($url);
+}
 $title = "TadTechAfrica || Customer Profile";
 $page = "contact";
 require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
+
 ?>
 
 <!-- Contact Info -->

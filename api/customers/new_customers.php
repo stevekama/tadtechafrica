@@ -40,6 +40,8 @@ $customers->edited_date = $d->format("Y-m-d H:i:s");
 if($customers->save()){
     // find customer by id 
     $current_customer = $customers->find_customer_by_id($customers->id);
+    $type = "CUSTOMER";
+    $session->login($current_customer, $type);
     $data['message'] = "success";
 }
 echo json_encode($data);

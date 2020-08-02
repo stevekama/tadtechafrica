@@ -217,6 +217,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                         $('#alertMessage').html('<div class="alert alert-success">Successfully created account. Loggin to your account to continue...</div>');
                         $('#registerForm')[0].reset();
                         $('#registerSubmitBtn').html('success');
+                        window.location.href = "<?php echo base_url(); ?>customers/index.php";
                     }
                 }
             });
