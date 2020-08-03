@@ -33,17 +33,17 @@ class Products{
         $query = "";
         if(empty($this->id)){
             $query .= "INSERT INTO ".$this->table_name."(";
-            $query .= "category_id = :category_id, product_name, product_image, product_details, ";
+            $query .= "category_id, product_name, product_image, product_details, ";
             $query .= "product_description, product_price, product_units, ";
             $query .= "product_status, created_date, edited_date";
             $query .= ")VALUES(";
-            $query .= ":product_name, :product_image, :product_details, ";
+            $query .= ":category_id, :product_name, :product_image, :product_details, ";
             $query .= ":product_description, :product_price, :product_units, ";
             $query .= ":product_status, :created_date, :edited_date";
             $query .= ")";
 
         }else{
-            $query .= "UPDATE ".$this->schema.".".$this->table_name." SET ";
+            $query .= "UPDATE ".$this->table_name." SET ";
             $query .= "category_id = :category_id, product_name = :product_name, product_image = :product_image, product_details = :product_details, ";
             $query .= "product_description = :product_description, product_price = :product_price, product_units = :product_units, ";
             $query .= "product_status = :product_status, created_date = :created_date, edited_date = :edited_date ";
@@ -183,7 +183,11 @@ class Products{
 
     public function find_all()
     {
-        $query = "SELECT * FROM ".$this->table_name." "; 
+        $query = "SELECT "; 
+        $query .= "products.id, categories.category_name, products.product_name, products.product_image, ";
+        $query .= "products.product_details, products.product_price, products.product_status ";
+        $query .= "FROM ".$this->table_name." ";
+        $query .= "INNER JOIN categories ON products.category_id = categories.id ";
         $query .= "ORDER BY id DESC";
 
         // prepare statement
@@ -204,7 +208,7 @@ class Products{
     
     public function find_product_by_id($id=0)
     {
-        $query = "SELECT * FROM ".$this->schema.".".$this->table_name." "; 
+        $query = "SELECT * FROM ".$this->table_name." "; 
         $query .= "WHERE id = :id LIMIT 1";
 
         //Prepare statement 
@@ -223,7 +227,7 @@ class Products{
     public function find_products_by_category_id($category_id = 0)
     {
         $query = "SELECT "; 
-        $query .= "categories.category, products.product_name, products.product_image, ";
+        $query .= "products.id, categories.category_name, products.product_name, products.product_image, ";
         $query .= "products.product_details, products.product_price, products.product_status ";
         $query .= "FROM ".$this->table_name." ";
         $query .= "INNER JOIN categories ON products.category_id = categories.id ";
@@ -250,5 +254,19 @@ class Products{
             return false;
         }
 
+    }
+
+    public function delete($id=0)
+    {
+        $query = "DELETE FROM ".$this->table_name." ";
+        $query .= "WHERE id=:id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $id = htmlentities($id);
+
+        if($stmt->execute(array('id'=>$id))){
+            return true;
+        }
     }
 }

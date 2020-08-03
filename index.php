@@ -105,12 +105,10 @@ $all_products = $products->find_all();
                                         </div>
                                         <div class="deals_content">
                                             <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <?php
-                                                // $categories = new Categories();
-                                                $current_category = $categories->find_category_by_id($product['category_id']); ?>
+                                               
                                                 <div class="deals_item_category">
                                                     <a href="#">
-                                                        <?php echo htmlentities($current_category['category_name']); ?>
+                                                        <?php echo htmlentities($product['category_name']); ?>
                                                     </a>
                                                 </div>
 
