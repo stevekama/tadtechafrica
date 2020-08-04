@@ -36,3 +36,9 @@ require_once(MODELS_PATH.DS.'products.php');
 
 // bring in customer type
 require_once(MODELS_PATH.DS.'customers.php');
+
+// bring in customer type
+require_once(MODELS_PATH.DS.'cart.php');
+
+// bring in wishlist
+require_once(MODELS_PATH.DS.'wishlist.php');

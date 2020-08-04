@@ -1196,6 +1196,11 @@ select option
 	transform: translateY(-2px);
 }
 
+.menu_contact_icon img
+{
+	max-width: 100%;
+}
+
 /*********************************
 4. Banner
 *********************************/

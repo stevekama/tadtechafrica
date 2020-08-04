@@ -10,3 +10,9 @@ require_once(MIGRATION_PATH.DS.'products.php');
 
 // bring in customers
 require_once(MIGRATION_PATH.DS.'customers.php');
+
+// bring in cart
+require_once(MIGRATION_PATH.DS.'cart.php');
+
+// bring in cart
+require_once(MIGRATION_PATH.DS.'wishlist.php');

@@ -71,13 +71,15 @@ $all_products = $products->find_all();
                                         </div>
                                         <div class="product_name">
                                             <div>
-                                                <a href="#" id="<?php echo md5($product['id']); ?>" tabindex="0" class="productDetails">
+                                                <a href="#" id="<?php echo htmlentities($product['id']); ?>" tabindex="0" class="productDetails">
                                                     <?php echo htmlentities($product['product_name']); ?>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                    <div id="<?php echo htmlentities($product['id']); ?>" class="product_fav productAddToWhishlist">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
                                     <ul class="product_marks">
                                         <li class="product_mark product_new">
                                             <?php echo htmlentities($product['product_status']) ?>

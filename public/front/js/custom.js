@@ -51,7 +51,7 @@ $(document).ready(function()
 	featuredSliderZIndex();
 	initPopularSlider();
 	initBanner2Slider();
-	initFavs();
+	// initFavs();
 	initArrivalsSlider();
 	arrivalsSliderZIndex();
 	bestsellersSlider();

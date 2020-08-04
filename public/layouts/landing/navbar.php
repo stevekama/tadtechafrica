@@ -77,6 +77,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -127,12 +128,23 @@
                                 <img src="<?php echo public_url(); ?>front/images/phone_white.png" alt="">
                             </div>+38 068 005 3570
                         </div>
+
                         <div class="menu_contact_item">
                             <div class="menu_contact_icon">
                                 <img src="<?php echo public_url(); ?>front/images/mail_white.png" alt="">
                             </div>
                             <a href="mailto:fastsales@gmail.com">
                                 fastsales@gmail.com
+                            </a>
+                        </div>
+
+                        <div class="menu_contact_item">
+                            <div class="menu_contact_icon">
+                                <!-- <i class="fa fa-user"></i> -->
+                                <img src="<?php echo public_url(); ?>front/images/user.png" alt="" width="10">
+                            </div>
+                            <a href="<?php echo base_url(); ?>landing/account.php">
+                                Register / Sign in
                             </a>
                         </div>
                     </div>

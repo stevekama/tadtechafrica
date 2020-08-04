@@ -1,4 +1,4 @@
-            <?php if($page != "contact"){ ?>
+            <?php if($page != "contact" && $page != "cart"){ ?>
                 <!-- Brands -->
                 <div class="brands">
                     <div class="container">
@@ -202,6 +202,10 @@
         <script src="<?php echo public_url(); ?>front/plugins/Isotope/isotope.pkgd.min.js"></script>
         <script src="<?php echo public_url(); ?>front/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>    
         <script src="<?php echo public_url(); ?>front/plugins/parallax-js-master/parallax.min.js"></script>
+        <!-- SweetAlert2 -->
+        <script src="<?php echo public_url(); ?>back/plugins/sweetalert2/sweetalert2.min.js"></script>
+        <!-- Toastr -->
+        <script src="<?php echo public_url(); ?>back/plugins/toastr/toastr.min.js"></script>
         <?php if($page == "home"){ ?>
             <script src="<?php echo public_url(); ?>front/js/custom.js"></script>
         <?php } ?>
@@ -211,5 +215,78 @@
         <?php if($page == "contact"){ ?>
             <script src="<?php echo public_url(); ?>front/js/contact_custom.js"></script>    
         <?php } ?>
+        <?php if($page == "cart"){ ?>
+            <script src="<?php echo public_url(); ?>front/js/cart_custom.js"></script>
+        <?php } ?>
+        <script>
+            $(document).ready(function(){
+                
+                $(document).on('click', '.productAddToCart', function(){
+                    var product_id = $(this).attr('id');
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>api/cart/new_cart_item.php",
+                        type:"POST",
+                        data:{product_id:product_id},
+                        dataType:"json",
+                        success:function(data){
+                            console.table(data);
+                        }
+                    });
+                });
+
+                $(document).on('click', '.productAddToWhishlist', function(){
+                    var product_id = $(this).attr('id');
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>api/wishlist/new_wishlist.php",
+                        type:"POST",
+                        data:{product_id:product_id},
+                        dataType:"json",
+                        success:function(data){
+                            if(data.message == "userNotLoggedIn"){
+                                toastr.error('Please login to your account to continue...');
+                                return false;
+                            }
+                            if(data.message == "success"){
+                                toastr.success('Product has been successfully added to wishlist.');
+                                find_customer_wishlist();
+                            }
+                            if(data.message == "productWishlistExist"){
+                                toastr.error('Product selected already added in the wishlist');
+                                return false;
+                            }
+                        }
+                    });
+                });
+
+                find_customer_wishlist();
+                find_customer_cart_items();
+
+                function find_customer_wishlist(){
+                    var action = "FETCH_NUM_ITEMS_WISHLIST";
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>api/wishlist/wishlist.php",
+                        type:"POST",
+                        data:{action:action},
+                        dataType:"json",
+                        success:function(data){
+                            $('#numWishlistItems').html(data.total_items);
+                        }
+                    });
+                }
+
+                function find_customer_cart_items(){
+                    var action = "FETCH_NUM_ITEMS_CART";
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>api/cart/cart.php",
+                        type:"POST",
+                        data:{action:action},
+                        dataType:"json",
+                        success:function(data){
+                            $('#numCartItems').html(data.total_items);
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

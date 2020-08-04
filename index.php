@@ -88,7 +88,6 @@ $all_products = $products->find_all();
     <div class="container">
         <div class="row">
             <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
-
                 <!-- Deals -->
                 <div class="deals">
                     <div class="deals_title">Deals of the Week</div>
@@ -105,7 +104,7 @@ $all_products = $products->find_all();
                                         </div>
                                         <div class="deals_content">
                                             <div class="deals_info_line d-flex flex-row justify-content-start">
-                                               
+
                                                 <div class="deals_item_category">
                                                     <a href="#">
                                                         <?php echo htmlentities($product['category_name']); ?>
@@ -114,7 +113,9 @@ $all_products = $products->find_all();
 
                                             </div>
                                             <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_name"><?php echo htmlentities($product['product_name']); ?></div>
+                                                <div class="deals_item_name">
+                                                    <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
+                                                </div>
                                                 <div class="deals_item_price ml-auto">KShs.<?php echo htmlentities($product['product_price']); ?></div>
                                             </div>
                                         </div>
@@ -140,8 +141,12 @@ $all_products = $products->find_all();
                     </div>
 
                     <div class="deals_slider_nav_container">
-                        <div class="deals_slider_prev deals_slider_nav"><i class="fa fa-chevron-left ml-auto"></i></div>
-                        <div class="deals_slider_next deals_slider_nav"><i class="fa fa-chevron-right ml-auto"></i></div>
+                        <div class="deals_slider_prev deals_slider_nav">
+                            <i class="fa fa-chevron-left ml-auto"></i>
+                        </div>
+                        <div class="deals_slider_next deals_slider_nav">
+                            <i class="fa fa-chevron-right ml-auto"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -158,35 +163,41 @@ $all_products = $products->find_all();
                         <!-- Product Panel -->
                         <div class="product_panel panel active">
                             <div class="featured_slider slider">
-                                <?php if (count($all_products) > 0) { ?>
-                                    <!-- Slider Item -->
-                                    <div class="featured_slider_item">
-                                        <div class="border_active"></div>
-                                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
-                                            </div>
-                                            <div class="product_content">
-                                                <div class="product_price discount">KShs.<?php echo htmlentities($product['product_price']); ?></div>
-                                                <div class="product_name">
-                                                    <div>
-                                                        <a href="#" id="<?php echo md5($product['id']); ?>">
-                                                            <?php echo htmlentities($product['product_name']); ?>
-                                                        </a>
+                                <?php if (count($all_products) > 0) {
+                                    foreach ($all_products as $product) { ?>
+                                        <!-- Slider Item -->
+                                        <div class="featured_slider_item">
+                                            <div class="border_active"></div>
+                                            <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                                <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                    <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
+                                                </div>
+                                                <div class="product_content">
+                                                    <div class="product_price discount">KShs.<?php echo htmlentities($product['product_price']); ?></div>
+                                                    <div class="product_name">
+                                                        <div>
+                                                            <a href="#" id="<?php echo htmlentities($product['id']); ?>">
+                                                                <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product_extras">
+                                                        <button id="<?php echo htmlentities($product['id']); ?>" class="product_cart_button productAddToCart">
+                                                            Add to Cart
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div class="product_extras">
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                <div id="<?php echo htmlentities($product['id']); ?>" class="product_fav productAddToWhishlist">
+                                                    <i class="fa fa-heart"></i>
                                                 </div>
+                                                <ul class="product_marks">
+                                                    <li class="product_mark product_new">
+                                                        <?php echo htmlentities($product['product_status']); ?>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <div class="product_fav"><i class="fa fa-heart"></i></div>
-                                            <ul class="product_marks">
-                                                <li class="product_mark product_new">
-                                                    <?php echo htmlentities($product['product_status']); ?>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
+                                    <?php } ?>
                                 <?php } else { ?>
                                     <!-- Slider Item -->
                                     <div class="featured_slider_item">
@@ -293,10 +304,10 @@ $all_products = $products->find_all();
                                                 <?php echo htmlentities($product['category_name']); ?>
                                             </div>
                                             <div class="banner_2_title">
-                                                <?php echo htmlentities($product['product_name']); ?>
+                                                <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
                                             </div>
                                             <div class="banner_2_text">
-                                                <?php echo htmlentities($product['product_details']); ?>
+                                                <?php echo htmlentities(truncate_string($product['product_details'], 100)); ?>
                                             </div>
                                             <div class="rating_r rating_r_4 banner_2_rating">
                                                 <i></i><i></i><i></i><i></i><i></i>
@@ -392,7 +403,7 @@ $all_products = $products->find_all();
                                                         <div class="product_name">
                                                             <div>
                                                                 <a href="#">
-                                                                    <?php echo htmlentities($product['product_name']); ?>
+                                                                    <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -400,8 +411,9 @@ $all_products = $products->find_all();
                                                             <button class="product_cart_button">Add to Cart</button>
                                                         </div>
                                                     </div>
-                                                    <div class="product_fav">
-                                                        <i class="fa fa-heart"></i></div>
+                                                    <div id="<?php echo htmlentities($product['id']); ?>" class="product_fav productAddToWhishlist">
+                                                        <i class="fa fa-heart"></i>
+                                                    </div>
                                                     <ul class="product_marks">
                                                         <li class="product_mark product_new">
                                                             <?php echo htmlentities($product['product_status']); ?>
@@ -432,7 +444,6 @@ $all_products = $products->find_all();
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -457,37 +468,41 @@ $all_products = $products->find_all();
 
                         <!-- Best Sellers Slider -->
                         <div class="bestsellers_slider slider">
-                            <?php if (count($all_products) > 0) { ?>
-                                <!-- Best Sellers Item -->
-                                <div class="bestsellers_item discount">
-                                    <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-                                        <div class="bestsellers_image">
-                                            <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
+                            <?php if (count($all_products) > 0) {
+                                foreach ($all_products as $product) { ?>
+                                    <!-- Best Sellers Item -->
+                                    <div class="bestsellers_item discount">
+                                        <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
+                                            <div class="bestsellers_image">
+                                                <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
+                                            </div>
+                                            <div class="bestsellers_content">
+                                                <div class="bestsellers_category">
+                                                    <a href="#">
+                                                        <?php echo htmlentities($product['category_name']); ?>
+                                                    </a>
+                                                </div>
+                                                <div class="bestsellers_name">
+                                                    <a href="#" class="productDetails" id="<?php echo htmlentities($product['id']); ?>">
+                                                        <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
+                                                    </a>
+                                                </div>
+                                                <div class="rating_r rating_r_4 bestsellers_rating">
+                                                    <i></i><i></i><i></i><i></i><i></i>
+                                                </div>
+                                                <div class="bestsellers_price discount">
+                                                    KShs.<?php echo htmlentities($product['product_price']); ?>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="bestsellers_content">
-                                            <div class="bestsellers_category">
-                                                <a href="#">
-                                                    <?php echo htmlentities($product['category_name']); ?>
-                                                </a>
-                                            </div>
-                                            <div class="bestsellers_name">
-                                                <a href="#" class="productDetails" id="<?php echo md5($product['id']); ?>">
-                                                    <?php echo htmlentities($product['product_name']); ?>
-                                                </a>
-                                            </div>
-                                            <div class="rating_r rating_r_4 bestsellers_rating">
-                                                <i></i><i></i><i></i><i></i><i></i>
-                                            </div>
-                                            <div class="bestsellers_price discount">KShs.<?php echo htmlentities($product['product_price']); ?></div>
-                                        </div>
+                                        <div class="bestsellers_fav"><i class="fa fa-heart"></i></div>
+                                        <ul class="bestsellers_marks">
+                                            <li class="bestsellers_mark bestsellers_new">
+                                                <?php echo htmlentities($product['product_status']); ?>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="bestsellers_fav active"><i class="fa fa-heart"></i></div>
-                                    <ul class="bestsellers_marks">
-                                        <li class="bestsellers_mark bestsellers_new">
-                                            <?php echo htmlentities($product['product_status']); ?>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <?php } ?>
                             <?php } else { ?>
                                 <!-- Best Sellers Item -->
                                 <div class="bestsellers_item discount">
@@ -519,4 +534,5 @@ $all_products = $products->find_all();
         </div>
     </div>
 </div>
+
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
