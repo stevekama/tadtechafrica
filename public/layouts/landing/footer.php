@@ -292,10 +292,12 @@
                             if(data.message == "noCartItems"){
                                 $('#numCartItems').html(0);
                                 $('#cartPrice').html(0);
+                                $('#loadCartItems').html('<ul class="cart_list"><li>No Cart Items</li></ul>');
                                 return false;
                             }else{
                                 $('#numCartItems').html(data.total_items);
                                 $('#cartPrice').html(data.total_price);
+                                $('#cartTotal').html(data.total_price);
                                 $('#loadCartItems').html(data.cart_details);
                             }
                         }

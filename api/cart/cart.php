@@ -82,7 +82,7 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
             $output .= '<li class="cart_item clearfix">';
             $output .= '<div class="cart_item_image">';
             $current_product = $products->find_product_by_id($item['product_id']);
-            $output .= '<img src="<?php echo public_url(); ?>storage/products/'.$current_product["product_image"].'" alt="Product">';
+            $output .= '<img src="'.public_url().'storage/products/'.$current_product["product_image"].'" alt="Product">';
             $output .= '</div>';
             $output .= '<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">';
             $output .= '<div class="cart_item_name cart_info_col">';
