@@ -166,8 +166,8 @@ $product_categories = $categories->find_all();
                                                     Cart
                                                 </a>
                                             </div>
-                                            <div id="cartPrice" class="cart_price">
-                                                0
+                                            <div class="cart_price">
+                                                KSHS.<span id="cartPrice"></span>
                                             </div>
                                         </div>
                                     </div>

@@ -22,6 +22,9 @@ class Cart_migration{
         $query .= "customer_id INT(11) NOT NULL, ";
         $query .= "product_id INT(11) NOT NULL, ";
         $query .= "quantity VARCHAR(200) NOT NULL, ";
+        $query .= "item_price VARCHAR(200) NOT NULL, ";
+        $query .= "total_price VARCHAR(200) NOT NULL, ";
+        $query .= "loginstatus VARCHAR(200) NOT NULL, ";
         $query .= "created_date TIMESTAMP NULL DEFAULT NULL, ";
         $query .= "edited_date TIMESTAMP NULL DEFAULT NULL";
         $query .= ")";

@@ -13,6 +13,10 @@ class Session {
     
     public $admin_id;
 
+    private $with_cart_items = false;
+
+    public $cart_items;
+
     function __construct(){
         session_start();
         $this->check_login();
@@ -23,6 +27,7 @@ class Session {
             //action to take right away if user is not loggedin
             return false;
         }
+        $this->check_cart_items();
     }
 
     private function check_login(){
@@ -49,6 +54,32 @@ class Session {
             $this->is_admin = false;
             $this->is_user = false;
         }
+    }
+
+    // check if cart item isset
+    private function check_cart_items()
+    {
+        if(isset($_SESSION['cart_items'])){
+            $this->cart_items = $_SESSION['cart_items'];
+            $this->with_cart_items = true;
+        }else{
+            unset($this->cart_items);
+            unset($_SESSION['cart_items']);
+            $this->with_cart_items = false;
+        }
+    }
+
+    // return  cart items status
+    public function has_cart_items()
+    {
+        return $this->with_cart_items;
+    }
+
+    // set cart items 
+    public function set_cart_items($status)
+    {
+        $this->cart_items = $_SESSION['cart_items'] = $status;
+        $this->with_cart_items = true;
     }
 
     public function is_logged_in(){
