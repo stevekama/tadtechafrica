@@ -60,7 +60,7 @@ $all_products = $products->find_all();
                         <?php if (count($all_products) > 0) {
                             foreach ($all_products as $product) { ?>
                                 <!-- Product Item -->
-                                <div class="product_item is_new">
+                                <div id="<?php echo htmlentities($product['id']);  ?>" class="product_item is_new productDetailsBtn">
                                     <div class="product_border"></div>
                                     <div class="product_image d-flex flex-column align-items-center justify-content-center">
                                         <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">

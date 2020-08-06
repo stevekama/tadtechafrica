@@ -17,7 +17,7 @@
                             <?php if(count($product_categories) > 0){ ?>
                                 <?php foreach($product_categories as $category){ ?>
                                     <li>
-                                        <a href="#!" id="<?php echo md5($category['id']); ?>" class="productsCategories"> 
+                                        <a href="#!" id="<?php echo htmlentities($category['id']); ?>" class="productsCategories"> 
                                             <?php echo htmlentities($category['category_name']); ?>
                                             <i class="fa fa-chevron-right ml-auto"></i>
                                         </a>
@@ -77,7 +77,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -106,7 +105,11 @@
                         <li class="page_menu_item has-children">
                             <a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
                             <ul class="page_menu_selection">
-                                <li><a href="<?php echo base_url(); ?>landing/shop.php">Shop More<i class="fa fa-angle-down"></i></a></li>
+                                <li>
+                                    <a href="<?php echo base_url(); ?>landing/shop.php">
+                                        Shop More<i class="fa fa-angle-down"></i>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                        

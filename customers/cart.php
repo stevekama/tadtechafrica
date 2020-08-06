@@ -25,7 +25,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                         <a href="<?php echo base_url(); ?>index.php" class="button cart_button_clear">
                             Continue Shopping
                         </a>
-                        <button type="button" class="button cart_button_checkout">
+                        <button type="button" id="proceedToCheckoutBtn" class="button cart_button_checkout">
                             Proceed To Checkout
                         </button>
                     </div>
@@ -36,3 +36,9 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 </div>
 
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
+
+<script>
+    $(document).on('click', '#proceedToCheckoutBtn', function(){
+        window.location.href = "<?php echo base_url(); ?>customers/order.php";
+    });
+</script>

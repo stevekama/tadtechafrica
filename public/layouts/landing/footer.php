@@ -327,6 +327,27 @@
 
                     });
                 });
+
+                $(document).on('click', '.productsCategories', function(){
+                    var category_id = $(this).attr('id');
+                    var action = "FETCH_CATEGORY";
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>api/categories/categories.php",
+                        type:"POST",
+                        data:{action:action, category_id:category_id},
+                        dataType:"json",
+                        success:function(data){
+                            if(data.message == "errorCategory"){
+                                toastr.error('Category selected doesnot exist');
+                                return false;
+                            }else{
+                                var c_id = $.trim(data.id);
+                                localStorage.setItem('category_id', c_id);
+                                window.location.href = "<?php echo base_url(); ?>landing/products_category.php?category="+c_id;
+                            }
+                        }
+                    });
+                });
             });
         </script>
     </body>

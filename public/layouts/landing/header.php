@@ -17,13 +17,14 @@ $product_categories = $categories->find_all();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title><?php echo htmlentities($title); ?></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="OneTech shop project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/ico" href="<?php echo public_url(); ?>storage/logo/logo.ico"/>
+    <link rel="shortcut icon" type="image/ico" href="<?php echo public_url(); ?>storage/logo/logo.ico" />
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/bootstrap4/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>fonts/font-awesome/css/font-awesome.min.css">
@@ -33,7 +34,7 @@ $product_categories = $categories->find_all();
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/plugins/slick-1.8.0/slick.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/toastr/toastr.min.css">
-    
+
     <?php if ($page == "home") { ?>
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/main_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/responsive.css">
@@ -46,11 +47,11 @@ $product_categories = $categories->find_all();
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/contact_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/contact_responsive.css">
     <?php } ?>
-    <?php if($page == "cart"){ ?>
+    <?php if ($page == "cart") { ?>
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/cart_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/cart_responsive.css">
     <?php } ?>
-    <?php if($page == "product"){ ?>
+    <?php if ($page == "product") { ?>
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/product_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/product_responsive.css">
     <?php } ?>
@@ -81,13 +82,13 @@ $product_categories = $categories->find_all();
                                     <div class="user_icon">
                                         <img src="<?php echo public_url(); ?>front/images/user.svg" alt="" />
                                     </div>
-                                    <?php if(isset($type)){ ?>
-                                        <?php 
-                                        if($type == "USERS"){
-                                            if($user_type == "CUSTOMER"){ ?>
+                                    <?php if (isset($type)) { ?>
+                                        <?php
+                                        if ($type == "USERS") {
+                                            if ($user_type == "CUSTOMER") { ?>
                                                 <div>
-                                                    <?php 
-                                                    $customers = new Customers(); 
+                                                    <?php
+                                                    $customers = new Customers();
                                                     $current_customer = $customers->find_customer_by_id($user_id);
                                                     ?>
                                                     <a href="<?php echo base_url(); ?>customers/index.php">
@@ -96,7 +97,7 @@ $product_categories = $categories->find_all();
                                                 </div>
                                             <?php } ?>
                                         <?php } ?>
-                                    <?php }else{ ?> 
+                                    <?php } else { ?>
                                         <div>
                                             <a href="<?php echo base_url(); ?>landing/account.php">
                                                 Register / Sign in
@@ -158,24 +159,24 @@ $product_categories = $categories->find_all();
 
                                 <!-- Cart -->
                                 <div class="cart">
-                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
-                                        <div class="cart_icon">
-                                            <img src="<?php echo public_url(); ?>front/images/cart.png" alt="">
-                                            <div class="cart_count">
-                                                <span id="numCartItems"></span>
+                                    <a href="<?php echo base_url(); ?>customers/cart.php">
+                                        <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                            <div class="cart_icon">
+                                                <img src="<?php echo public_url(); ?>front/images/cart.png" alt="">
+                                                <div class="cart_count">
+                                                    <span id="numCartItems"></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="cart_content">
-                                            <div class="cart_text">
-                                                <a href="<?php echo base_url(); ?>customers/cart.php">
+                                            <div class="cart_content">
+                                                <div class="cart_text">
                                                     Cart
-                                                </a>
-                                            </div>
-                                            <div class="cart_price">
-                                                KSHS.<span id="cartPrice"></span>
+                                                </div>
+                                                <div class="cart_price">
+                                                    KSHS.<span id="cartPrice"></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
