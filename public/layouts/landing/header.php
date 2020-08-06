@@ -23,6 +23,7 @@ $product_categories = $categories->find_all();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="OneTech shop project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/ico" href="<?php echo public_url(); ?>storage/logo/logo.ico"/>
     <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/bootstrap4/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?php echo public_url(); ?>fonts/font-awesome/css/font-awesome.min.css">
@@ -49,6 +50,10 @@ $product_categories = $categories->find_all();
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/cart_styles.css">
         <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/cart_responsive.css">
     <?php } ?>
+    <?php if($page == "product"){ ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/product_styles.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo public_url(); ?>front/css/product_responsive.css">
+    <?php } ?>
 </head>
 
 <body>
@@ -63,7 +68,7 @@ $product_categories = $categories->find_all();
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon">
                                     <img src="<?php echo public_url(); ?>front/images/phone.png" alt="">
-                                </div>+38 068 005 3570
+                                </div>+254 793 033110
                             </div>
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon">

@@ -100,7 +100,14 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
             $output .= '<div class="cart_item_total cart_info_col">';
             $output .= '<div class="cart_item_title">Total</div>';
             $output .= '<div class="cart_item_text">KSHS.'.$item["total_price"].'</div>';
-            $output .= '</div></div> </li></ul>';
+            $output .= '</div>';
+            $output .= '<div class="cart_item_total cart_info_col">';
+            $output .= '<div class="cart_item_title">Remove</div>';
+            $output .= '<div class="cart_item_text">';
+            $output .= '<a href="#" id="'.$item["id"].'" class="btn btn-link remove">Delete</a>';
+            $output .= '</div>';
+            $output .= '</div>';
+            $output .= '</div></li></ul>';
         }
     }
     $data['cart_details'] = $output;
@@ -114,4 +121,29 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
     $data['total_price'] = $total;
 
     echo json_encode($data);
+}
+
+if($_POST['action'] == "FETCH_ITEM_BY_ID"){
+    $cart_id = htmlentities($_POST['cart_id']);
+    $current_cart = $cart->find_cart_item_by_id($cart_id);
+    if(!$current_cart){
+        $data['message'] = "errCart";
+        echo json_encode($data);
+        die();
+    }
+    echo json_encode($current_cart);
+}
+
+if($_POST['action'] == "DELETE_ITEM"){
+    $cart_id = htmlentities($_POST['cart_id']);
+    $current_cart = $cart->find_cart_item_by_id($cart_id);
+    if(!$current_cart){
+        $data['message'] = "errCart";
+        echo json_encode($data);
+        die();
+    }
+    if($cart->delete($current_cart['id'])){
+        $data['message'] = "success";
+    }
+    echo json_encode($current_cart);
 }

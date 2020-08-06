@@ -218,9 +218,11 @@
         <?php if($page == "cart"){ ?>
             <script src="<?php echo public_url(); ?>front/js/cart_custom.js"></script>
         <?php } ?>
+        <?php if($page == "product"){ ?>
+            <script src="<?php echo public_url(); ?>front/js/product_custom.js"></script>
+        <?php } ?>
         <script>
             $(document).ready(function(){
-                
                 $(document).on('click', '.productAddToCart', function(){
                     var product_id = $(this).attr('id');
                     $.ajax({
@@ -303,6 +305,28 @@
                         }
                     });
                 }
+
+                $(document).on('click', '.productDetailsBtn', function(){
+                    var product_id = $(this).attr("id");
+                    var action = "FETCH_PRODUCT";
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>api/products/products.php",
+                        type:"POST",
+                        data:{action:action, product_id:product_id},
+                        dataType:"json",
+                        success:function(data){
+                            if(data.message == "errorProduct"){
+                                toastr.error('Product selected doesnot exist');
+                                return false;
+                            }else{
+                                var p_id = $.trim(data.id);
+                                localStorage.setItem('product_id', p_id);
+                                window.location.href = "<?php echo base_url(); ?>landing/product_details.php?product="+p_id;
+                            }
+                        }
+
+                    });
+                });
             });
         </script>
     </body>

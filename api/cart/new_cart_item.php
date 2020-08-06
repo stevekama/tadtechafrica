@@ -46,7 +46,7 @@ if($session->is_logged_in()){
                 echo json_encode($data);
                 die();
             }
-            $cart->quantity = 1;
+            $cart->quantity = htmlentities($_POST['quantity']);
             $cart->item_price = $current_product['product_price'];
             $product_price_str = $cart->item_price;
             $con_price = str_replace(',', '', $product_price_str);

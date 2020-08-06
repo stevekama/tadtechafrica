@@ -92,13 +92,12 @@ $all_products = $products->find_all();
                 <div class="deals">
                     <div class="deals_title">Deals of the Week</div>
                     <div class="deals_slider_container">
-
                         <!-- Deals Slider -->
                         <div class="owl-carousel owl-theme deals_slider">
                             <?php if (count($all_products) > 0) { ?>
                                 <?php foreach ($all_products as $product) { ?>
                                     <!-- Deals Item -->
-                                    <div class="owl-item deals_item">
+                                    <div id="<?php echo htmlentities($product['id']); ?>" class="owl-item deals_item productDetailsBtn">
                                         <div class="deals_image">
                                             <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
                                         </div>
@@ -128,7 +127,6 @@ $all_products = $products->find_all();
                                         <img src="<?php echo public_url(); ?>storage/products/noimage.png" alt="">
                                     </div>
                                     <div class="deals_content">
-
                                         <div class="deals_info_line d-flex flex-row justify-content-start">
                                             <div class="deals_item_name">
                                                 <a href="<?php echo base_url(); ?>">Welcome TadTech</a>
@@ -166,7 +164,7 @@ $all_products = $products->find_all();
                                 <?php if (count($all_products) > 0) {
                                     foreach ($all_products as $product) { ?>
                                         <!-- Slider Item -->
-                                        <div class="featured_slider_item">
+                                        <div id="<?php echo htmlentities($product['id']); ?>" class="featured_slider_item productDetailsBtn">
                                             <div class="border_active"></div>
                                             <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                                 <div class="product_image d-flex flex-column align-items-center justify-content-center">
@@ -182,9 +180,9 @@ $all_products = $products->find_all();
                                                         </div>
                                                     </div>
                                                     <div class="product_extras">
-                                                        <button id="<?php echo htmlentities($product['id']); ?>" class="product_cart_button productAddToCart">
+                                                        <!-- <button id="<?php echo htmlentities($product['id']); ?>" class="product_cart_button productAddToCart">
                                                             Add to Cart
-                                                        </button>
+                                                        </button> -->
                                                     </div>
                                                 </div>
                                                 <div id="<?php echo htmlentities($product['id']); ?>" class="product_fav productAddToWhishlist">
@@ -390,7 +388,7 @@ $all_products = $products->find_all();
                                     <?php if (count($all_products) > 0) {
                                         foreach ($all_products as $product) { ?>
                                             <!-- Slider Item -->
-                                            <div class="arrivals_slider_item">
+                                            <div id="<?php echo htmlentities($product['id']); ?>" class="arrivals_slider_item productDetailsBtn">
                                                 <div class="border_active"></div>
                                                 <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
                                                     <div class="product_image d-flex flex-column align-items-center justify-content-center">
@@ -407,9 +405,9 @@ $all_products = $products->find_all();
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                        <div class="product_extras">
+                                                        <!-- <div class="product_extras">
                                                             <button class="product_cart_button">Add to Cart</button>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                     <div id="<?php echo htmlentities($product['id']); ?>" class="product_fav productAddToWhishlist">
                                                         <i class="fa fa-heart"></i>
@@ -471,7 +469,7 @@ $all_products = $products->find_all();
                             <?php if (count($all_products) > 0) {
                                 foreach ($all_products as $product) { ?>
                                     <!-- Best Sellers Item -->
-                                    <div class="bestsellers_item discount">
+                                    <div id="<?php echo htmlentities($product['id']); ?>" class="bestsellers_item discount productDetailsBtn">
                                         <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
                                             <div class="bestsellers_image">
                                                 <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
@@ -536,3 +534,6 @@ $all_products = $products->find_all();
 </div>
 
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
+<script>
+    localStorage.clear();
+</script>
