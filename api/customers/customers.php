@@ -25,3 +25,30 @@ if($_POST['action'] == "LOGOUT"){
         echo json_encode($data);
     }
 }
+
+if($_POST['action'] == "FETCH_CUSTOMER"){
+    if($session->is_logged_in()){
+        if($session->check_user()){
+            if($session->user_type == "CUSTOMER"){
+                $customer_id = htmlentities($session->user_id);
+                $current_customer = $customers->find_customer_by_id($customer_id);
+                if(!$current_customer){
+                    $data['message'] = "errorCustomer";
+                    echo json_encode($data);
+                    die();
+                }
+
+                $data[] = $current_customer;
+            }else{
+                $data['message'] = "errorCustomer";
+            }
+        }else{
+            $data['message'] = "errorCustomer";
+        }
+    }else{
+        $data['message'] = 'errorCustomer';
+    }
+
+    echo json_encode($data);
+}
+

@@ -74,7 +74,10 @@ $product_categories = $categories->find_all();
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon">
                                     <img src="<?php echo public_url(); ?>front/images/mail.png" alt="">
-                                </div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a>
+                                </div>
+                                <a href="mailto:info@tadtechafrica.com">
+                                    info@tadtechafrica.com
+                                </a>
                             </div>
 
                             <div class="top_bar_content ml-auto">
@@ -82,6 +85,7 @@ $product_categories = $categories->find_all();
                                     <div class="user_icon">
                                         <img src="<?php echo public_url(); ?>front/images/user.svg" alt="" />
                                     </div>
+
                                     <?php if (isset($type)) { ?>
                                         <?php
                                         if ($type == "USERS") {
@@ -94,6 +98,9 @@ $product_categories = $categories->find_all();
                                                     <a href="<?php echo base_url(); ?>customers/index.php">
                                                         <?php echo htmlentities($current_customer['customer_fullnames']); ?>
                                                     </a>
+                                                </div>
+                                                <div>
+                                                    <a href="#!" class="logout">Logout</a>
                                                 </div>
                                             <?php } ?>
                                         <?php } ?>
@@ -146,15 +153,17 @@ $product_categories = $categories->find_all();
                         <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                             <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                                 <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                                    <div class="wishlist_icon">
-                                        <img src="<?php echo public_url(); ?>front/images/heart.png" alt="">
-                                    </div>
-                                    <div class="wishlist_content">
-                                        <div class="wishlist_text">
-                                            <a href="#">Wishlist</a>
+                                    <a href="#!" class="viewWishlistBtn">
+                                        <div class="wishlist_icon">
+                                            <img src="<?php echo public_url(); ?>front/images/heart.png" alt="">
                                         </div>
-                                        <div id="numWishlistItems" class="wishlist_count"></div>
-                                    </div>
+                                        <div class="wishlist_content">
+                                            <div class="wishlist_text">
+                                                <a href="#" class="viewWishlistBtn">Wishlist</a>
+                                            </div>
+                                            <div id="numWishlistItems" class="wishlist_count"></div>
+                                        </div>
+                                    </a>
                                 </div>
 
                                 <!-- Cart -->

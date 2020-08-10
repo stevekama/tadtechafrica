@@ -38,6 +38,7 @@ if($session->is_logged_in()){
             // create product item in cart
             $customer_id = htmlentities($session->user_id);
             $cart->customer_id = $customer_id;
+            $cart->order_id = htmlentities(0);
             $cart->product_id = $current_product['id'];
             // check if product is in the cart
             $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
@@ -55,6 +56,7 @@ if($session->is_logged_in()){
             $cart->total_price = $total_price;
             // set isloggedIn to be true
             $cart->loginstatus = "TRUE";
+            $cart->cart_status = "NEW";
             $cart->created_date = $d->format("Y-m-d H:i:s");
             $cart->edited_date = $d->format("Y-m-d H:i:s");
 
@@ -69,6 +71,7 @@ if($session->is_logged_in()){
             // create product item in cart
             $customer_id = htmlentities(0);
             $cart->customer_id = $customer_id;
+            $cart->order_id = htmlentities(0);
             $cart->product_id = $current_product['id'];
             // check if product is in the cart
             $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
@@ -86,6 +89,7 @@ if($session->is_logged_in()){
             $cart->total_price = $total_price;
             // set isloggedIn to be true
             $cart->loginstatus = "FALSE";
+            $cart->cart_status = "NEW";
             $cart->created_date = $d->format("Y-m-d H:i:s");
             $cart->edited_date = $d->format("Y-m-d H:i:s");
 
@@ -101,6 +105,7 @@ if($session->is_logged_in()){
         // create product item in cart
         $customer_id = htmlentities(0);
         $cart->customer_id = $customer_id;
+        $cart->order_id = 0;
         $cart->product_id = $current_product['id'];
         // check if product is in the cart
         $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
@@ -118,6 +123,7 @@ if($session->is_logged_in()){
         $cart->total_price = $total_price;
         // set isloggedIn to be true
         $cart->loginstatus = "FALSE";
+        $cart->cart_status = "NEW";
         $cart->created_date = $d->format("Y-m-d H:i:s");
         $cart->edited_date = $d->format("Y-m-d H:i:s");
 
@@ -133,6 +139,7 @@ if($session->is_logged_in()){
     // create product item in cart
     $customer_id = htmlentities(0);
     $cart->customer_id = $customer_id;
+    $cart->order_id = 0;
     $cart->product_id = $current_product['id'];
     // check if product is in the cart
     $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
@@ -150,6 +157,7 @@ if($session->is_logged_in()){
     $cart->total_price = $total_price;
     // set isloggedIn to be true
     $cart->loginstatus = "FALSE";
+    $cart->cart_status = "NEW";
     $cart->created_date = $d->format("Y-m-d H:i:s");
     $cart->edited_date = $d->format("Y-m-d H:i:s");
     

@@ -20,11 +20,13 @@ class Cart_migration{
         $query = "CREATE TABLE IF NOT EXISTS ".$this->table_name."(";
         $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
         $query .= "customer_id INT(11) NOT NULL, ";
+        $query .= "order_id INT(11) NOT NULL, ";
         $query .= "product_id INT(11) NOT NULL, ";
         $query .= "quantity VARCHAR(200) NOT NULL, ";
         $query .= "item_price VARCHAR(200) NOT NULL, ";
         $query .= "total_price VARCHAR(200) NOT NULL, ";
         $query .= "loginstatus VARCHAR(200) NOT NULL, ";
+        $query .= "cart_status VARCHAR(200) NOT NULL, ";
         $query .= "created_date TIMESTAMP NULL DEFAULT NULL, ";
         $query .= "edited_date TIMESTAMP NULL DEFAULT NULL";
         $query .= ")";

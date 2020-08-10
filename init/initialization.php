@@ -26,7 +26,7 @@ require_once(CONFIG_PATH.DS.'functions.php');
 // require_once(CONFIG_PATH.DS.'auth.php');
 
 // load mail()
-// require_once(VENDOR_PATH.DS.'autoload.php');
+require_once(VENDOR_PATH.DS.'autoload.php');
 
 // load send mail
 require_once(MODELS_PATH.DS.'categories.php');
@@ -42,3 +42,9 @@ require_once(MODELS_PATH.DS.'cart.php');
 
 // bring in wishlist
 require_once(MODELS_PATH.DS.'wishlist.php');
+
+// bring in customer orders
+require_once(MODELS_PATH.DS.'customer_orders.php');
+
+// bring in send mail
+require_once(MODELS_PATH.DS.'send_mail.php');

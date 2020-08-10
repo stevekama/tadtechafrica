@@ -16,3 +16,9 @@ require_once(MIGRATION_PATH.DS.'cart.php');
 
 // bring in cart
 require_once(MIGRATION_PATH.DS.'wishlist.php');
+
+// bring in orders
+require_once(MIGRATION_PATH.DS.'customer_orders.php');
+
+// bring in mail
+require_once(MIGRATION_PATH.DS.'mail.php');

@@ -39,6 +39,17 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 
 <script>
     $(document).on('click', '#proceedToCheckoutBtn', function(){
-        window.location.href = "<?php echo base_url(); ?>customers/order.php";
+        $.ajax({
+            url:"<?php echo base_url(); ?>api/customer_orders/new_order.php",
+            type:"POST",
+            dataType:"json",
+            success:function(data){
+                if(data.message == "success"){
+                    var order_id = $.trim(data.order_id);
+                    localStorage.setItem('order_id', order_id);
+                    window.location.href = "<?php echo base_url(); ?>customers/order.php?order="+order_id;
+                }
+            }
+        }); 
     });
 </script>

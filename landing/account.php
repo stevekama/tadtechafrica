@@ -85,7 +85,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                                         Login
                                     </button>
 
-                                    <a href="#" class="btn btn-link pull-right">
+                                    <a href="<?php echo base_url(); ?>landing/forgot.php" class="btn btn-link pull-right">
                                         Forgot Password
                                     </a>
                                 </div>
@@ -151,6 +151,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 </div>
 
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
+
 <script>
     $(document).ready(function() {
         /// login and registration

@@ -35,7 +35,7 @@ class Categories{
             $query .= ")";
 
         }else{
-            $query .= "UPDATE ".$this->schema.".".$this->table_name." SET ";
+            $query .= "UPDATE ".$this->table_name." SET ";
             $query .= "category_name = :category_name, category_image = :category_image, "; 
             $query .= "created_date = :created_date, edited_date = edited_date ";
             $query .= "WHERE id = :id";

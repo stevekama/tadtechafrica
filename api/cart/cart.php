@@ -70,8 +70,9 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
 
     }
 
-    // Read cart items for customer 
-    $cart_items = $cart->find_cart_item_by_customer_id($customer_id);
+    // Read cart items for customer
+    $cart_status = "NEW";
+    $cart_items = $cart->find_cart_items_by_cart_status($customer_id, $cart_status);
 
     $data['total_items'] = count($cart_items);
     // loop through cart items and display them
@@ -104,7 +105,7 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
             $output .= '<div class="cart_item_total cart_info_col">';
             $output .= '<div class="cart_item_title">Remove</div>';
             $output .= '<div class="cart_item_text">';
-            $output .= '<a href="#" id="'.$item["id"].'" class="btn btn-link remove">Delete</a>';
+            $output .= '<a href="#" id="'.$item["id"].'" class="btn btn-link remove_item">Delete</a>';
             $output .= '</div>';
             $output .= '</div>';
             $output .= '</div></li></ul>';
@@ -145,5 +146,5 @@ if($_POST['action'] == "DELETE_ITEM"){
     if($cart->delete($current_cart['id'])){
         $data['message'] = "success";
     }
-    echo json_encode($current_cart);
+    echo json_encode($data);
 }
