@@ -652,10 +652,10 @@ section
 	line-height: 48px;
 	cursor: pointer;
 }
-.custom_dropdown_placeholder i
+/* .custom_dropdown_placeholder i
 {
-	
-}
+
+} */
 .custom_list
 {
 	text-align: left;
@@ -711,7 +711,7 @@ select
 {
 	display: inline;
 	border: 0;
-	width: auto;
+	/* width: auto; */
 	margin-left: 10px;
 	outline: none;
 	-webkit-appearance: none;
@@ -1087,7 +1087,7 @@ select option
 	display: block;
 	position: relative;
 	border-bottom: solid 1px rgba(255,255,255,0.1);
-	vertical-align: middle;
+	/* vertical-align: middle; */
 }
 .page_menu_item > a
 {
@@ -1236,10 +1236,7 @@ select option
 	text-transform: uppercase;
 	letter-spacing: 0.038em;
 }
-.banner_price
-{
 
-}
 .banner_price
 {
 	font-size: 30px;

@@ -43,25 +43,11 @@
                                 </a>
                             </li>
                             <li class="hassubs">
-                                <a href="#">Super Deals<i class="fa fa-chevron-down"></i></a>
-                                <ul>
-                                    <li>
-                                        <a href="<?php echo base_url(); ?>landing/shop.php">
-                                            Shop More<i class="fa fa-chevron-down"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <a href="<?php echo base_url(); ?>landing/shop.php">Shop More</a>
                             </li>
 
                             <li class="hassubs">
-                                <a href="#">Help<i class="fa fa-chevron-down"></i></a>
-                                <ul>
-                                    <li>
-                                        <a href="<?php echo base_url(); ?>landing/contact.php">
-                                            Contact us<i class="fa fa-chevron-down"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <a href="<?php echo base_url(); ?>landing/contact.php">Help</a>
                             </li>
                         </ul>
                     </div>
@@ -103,25 +89,13 @@
                             </a>
                         </li>
                         <li class="page_menu_item has-children">
-                            <a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
-                            <ul class="page_menu_selection">
-                                <li>
-                                    <a href="<?php echo base_url(); ?>landing/shop.php">
-                                        Shop More<i class="fa fa-angle-down"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="<?php echo base_url(); ?>landing/shop.php">Shop More</a>
                         </li>
                        
                         <li class="page_menu_item has-children">
-                            <a href="#">Help<i class="fa fa-angle-down"></i></a>
-                            <ul class="page_menu_selection">
-                                <li>
-                                    <a href="<?php echo base_url(); ?>landing/contact.php">
-                                        Contact us<i class="fa fa-angle-down"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="<?php echo base_url(); ?>landing/contact.php">
+                                Help
+                            </a>
                         </li>
                     </ul>
 

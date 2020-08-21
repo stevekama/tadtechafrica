@@ -20,6 +20,14 @@ if($_POST['action'] == "CREATE_TABLE"){
     echo json_encode($data);
 }
 
+if($_POST['action'] == "ADD_CLASSIFICATION_ID"){
+    $table = $products_migration->add_classification_id();
+    if($table){
+        $data['message'] = "success";
+    }
+    echo json_encode($data);
+}
+
 // delete table
 if($_POST['action'] == "DELETE_TABLE"){
     $table = $products_migration->drop();

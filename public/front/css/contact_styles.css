@@ -1265,9 +1265,14 @@ select option
 	margin-left:auto;
 	margin-right: auto;
 	object-fit: contain;
+	width: 100px;
 }
 
 #customer_account {
+	display: none;
+}
+
+#myWishlistAccount {
 	display: none;
 }
 
@@ -1279,6 +1284,14 @@ select option
 	display: none;
 }
 
+/* wishlist product image */
+.wishlist-image img {
+	max-width: 65px;
+	margin-left:auto;
+	margin-right: auto;
+	object-fit: contain;
+}
+
 
 /*********************************
 4.1 Contact Form
@@ -1288,10 +1301,10 @@ select option
 {
 	padding-top: 85px;
 }
-.contact_form_container
+/* .contact_form_container
 {
 
-}
+} */
 .contact_form_title
 {
 	font-size: 30px;

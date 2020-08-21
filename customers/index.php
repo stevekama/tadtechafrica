@@ -1,15 +1,15 @@
 <?php
 require_once('../init/initialization.php');
-$url = base_url().'index.php';
-if(!$session->is_logged_in()){
+$url = base_url() . 'index.php';
+if (!$session->is_logged_in()) {
     redirect_to($url);
 }
-if(!$session->check_user()){
+if (!$session->check_user()) {
     $session->logout();
     redirect_to($url);
 }
 
-if($session->user_type != "CUSTOMER"){
+if ($session->user_type != "CUSTOMER") {
     $session->logout();
     redirect_to($url);
 }
@@ -70,12 +70,13 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
                 <div class="row">
+
                     <div class="col-md-4">
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-body">
                                 <div class="customer_img">
-                                    <img src="<?php echo public_url(); ?>storage/customers/<?php echo htmlentities($current_customer['customer_image']); ?>" class="rounded-circle" alt="Customer Profile" />
+                                    <img src="<?php echo public_url(); ?>storage/customers/<?php echo htmlentities($current_customer['customer_image']); ?>" class="rounded-circle img-thumbnail" alt="Customer Profile" />
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -91,7 +92,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" id="customerAccountBtn">
+                                        <a href="#" id="customerWishlistBtn">
                                             My Wishlist <i class="fa fa-chevron-right ml-auto"></i>
                                         </a>
                                     </li>
@@ -117,7 +118,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                         </div>
                         <!-- /.card -->
                     </div>
-                    <!-- ./col-md-6 -->
+                    <!-- ./col-md-4 -->
 
                     <div class="col-md-8">
                         <!-- general form elements -->
@@ -161,6 +162,14 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                             </div>
                             <!-- /.card-body -->
 
+                        </div>
+                        <!-- /.card -->
+
+                        <!-- general form elements -->
+                        <div id="myWishlistAccount" class="card card-primary">
+                            <!-- /.card-header -->
+                            <div id="loadWishlistItems" class="card-body table-responsive"></div>
+                            <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
 
@@ -243,19 +252,19 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                                         <span id="customerPasswordAlertMessage"></span>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="customer_id" class="form-control" id="customerPasswordCustomerId" value="<?php echo htmlentities($current_customer['id']); ?>"/>
+                                        <input type="hidden" name="customer_id" class="form-control" id="customerPasswordCustomerId" value="<?php echo htmlentities($current_customer['id']); ?>" />
                                     </div>
                                     <div class="form-group">
                                         <label for="customerPassword">Password</label>
-                                        <input type="password" name="password" class="form-control" id="customerPassword" placeholder="Password"/>
+                                        <input type="password" name="password" class="form-control" id="customerPassword" placeholder="Password" />
                                     </div>
                                     <div class="form-group">
                                         <label for="customerNewPassword">New Password</label>
-                                        <input type="password" name="new_password" class="form-control" id="customerNewPassword" placeholder="New Password"/>
+                                        <input type="password" name="new_password" class="form-control" id="customerNewPassword" placeholder="New Password" />
                                     </div>
                                     <div class="form-group">
                                         <label for="customerConfirmPassword">Retype Password</label>
-                                        <input type="password" name="confirm" class="form-control" id="customerConfirmPassword" placeholder="Retype Password"/>
+                                        <input type="password" name="confirm" class="form-control" id="customerConfirmPassword" placeholder="Retype Password" />
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" id="customerPasswordSubmitBtn" class="btn btn-primary">
@@ -274,10 +283,13 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
         </div>
     </div>
 </div>
+
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
+
 <script>
     $(document).ready(function() {
         // hide all customer components
+        $('#myWishlistAccount').fadeOut(800).hide();
         $('#customer_settings').fadeOut(800).hide();
         $('#customer_password_settings').fadeOut(800).hide();
         // display customer account info 
@@ -287,6 +299,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
         $('#customerAccountBtn').on('click', function(event) {
             event.preventDefault();
             // hide all customer components
+            $('#myWishlistAccount').fadeOut(800).hide();
             $('#customer_settings').fadeOut(800).hide();
             $('#customer_password_settings').fadeOut(800).hide();
             // display customer account info 
@@ -294,10 +307,32 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 
         });
 
+        // wushlist customer account
+        $('#customerWishlistBtn').on('click', function(event){
+            event.preventDefault();
+            /// load items
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/wishlist/wishlist.php",
+                type: "POST",
+                dataType: "json",
+                success: function(data) {
+                    $('#loadWishlistItems').html(data.wishlist_table);
+                    // hide all customer components
+                    $('#customer_account').fadeOut(800).hide();
+                    $('#customer_settings').fadeOut(800).hide();
+                    $('#customer_password_settings').fadeOut(800).hide();
+                    // display customer account info 
+                    $('#myWishlistAccount').fadeIn(900).show();
+                }
+            });
+            
+        });
+
         // click customer settings
         $('#customerSettingsBtn').on('click', function(e) {
             e.preventDefault();
             // hide all customer components
+            $('#myWishlistAccount').fadeOut(800).hide();
             $('#customer_account').fadeOut(800).hide();
             $('#customer_password_settings').fadeOut(800).hide();
             // display customer account info 
@@ -380,6 +415,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
         $('#customerChangePasswordBtn').on('click', function(e) {
             e.preventDefault();
             // hide all customer components
+            $('#myWishlistAccount').fadeOut(800).hide();
             $('#customer_account').fadeOut(800).hide();
             $('#customer_settings').fadeOut(800).hide();
             // display customer account info 
@@ -428,15 +464,17 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
         });
 
         // logout function 
-        function logout(){
+        function logout() {
             var action = "LOGOUT";
             $.ajax({
-                url:"<?php echo base_url(); ?>api/customers/customers.php",
-                type:"POST",
-                data:{action:action},
-                dataType:"json",
-                success:function(data){
-                    if(data.message == "success"){
+                url: "<?php echo base_url(); ?>api/customers/customers.php",
+                type: "POST",
+                data: {
+                    action: action
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.message == "success") {
                         window.location.href = "<?php echo base_url(); ?>index.php";
                     }
                 }
@@ -444,7 +482,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
         }
 
         // click logout
-        $(document).on('click', '.logout', function(event){
+        $(document).on('click', '.logout', function(event) {
             event.preventDefault();
             logout();
         });

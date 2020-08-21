@@ -563,11 +563,7 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
-	12. Init Banner 2 Slider
-
-	*/
+	/* 12. Init Banner 2 Slider */
 
 	function initBanner2Slider()
 	{
@@ -586,11 +582,7 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
-	13. Init Arrivals Slider
-
-	*/
+	/* 13. Init Arrivals Slider */
 
 	function initArrivalsSlider()
 	{
@@ -679,11 +671,7 @@ $(document).ready(function()
 		});
 	}
 
-	/* 
-
-	14. Init Arrivals Slider ZIndex
-
-	*/
+	/* 14. Init Arrivals Slider ZIndex */
 
 	function arrivalsSliderZIndex()
 	{

@@ -67,6 +67,42 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-th-list"></i>
                         <p>
+                            Classifications
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>vendors/classifications/index.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Product Classifications</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-th-list"></i>
+                        <p>
+                            Promotions
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>vendors/promotions/index.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Product Promotions</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-th-list"></i>
+                        <p>
                             Products
                             <i class="fa fa-angle-left right"></i>
                         </p>

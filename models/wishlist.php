@@ -90,9 +90,13 @@ class Wishlist{
 
     public function find_cart_item_by_customer_id($customer_id = 0)
     {
-        $query = "SELECT * FROM ".$this->table_name." ";
-        $query .= "WHERE customer_id = :customer_id ";
-        $query .= "ORDER BY id DESC";
+        $query = "SELECT "; 
+        $query .= "wishlist.id, products.product_name, ";
+        $query .= "products.product_image, products.product_price ";
+        $query .= "FROM ".$this->table_name." ";
+        $query .= "INNER JOIN products ON wishlist.product_id = products.id ";
+        $query .= "WHERE wishlist.customer_id = :customer_id ";
+        $query .= "ORDER BY wishlist.id DESC";
 
         // prepare statement
         $stmt = $this->conn->prepare($query);

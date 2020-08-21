@@ -48,3 +48,18 @@ require_once(MODELS_PATH.DS.'customer_orders.php');
 
 // bring in send mail
 require_once(MODELS_PATH.DS.'send_mail.php');
+
+// bring in sdelivery mode
+require_once(MODELS_PATH.DS.'delivery_mode.php');
+
+// bring in sdelivery mode
+require_once(MODELS_PATH.DS.'order_deliveries.php');
+
+// bring in cuatomer location
+require_once(MODELS_PATH.DS.'customer_location.php');
+
+// bring in product classification
+require_once(MODELS_PATH.DS.'product_classification.php');
+
+// bring in product promotion
+require_once(MODELS_PATH.DS.'product_promotion.php');

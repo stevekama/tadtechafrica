@@ -52,25 +52,22 @@ $wishlist_items = $wishlist->find_cart_item_by_customer_id($customer_id);
 
 $data['total_items'] = count($wishlist_items);
 
-$products = new Products();
-
 $output = '';
 if(count($wishlist_items) > 0){
     $output .= '<ul class="cart_list">';
     foreach($wishlist_items as $item){
-        $current_product = $products->find_product_by_id($item['product_id']);
         $output .= '<li class="cart_item clearfix">';
         $output .= '<div class="cart_item_image">';
-        $output .= '<img src="'.public_url().'storage/products/'.$current_product["product_image"].'" alt="">';
+        $output .= '<img src="'.public_url().'storage/products/'.$item["product_image"].'" alt="">';
         $output .= '</div>';
         $output .= '<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">';
         $output .= '<div class="cart_item_name cart_info_col">';
         $output .= '<div class="cart_item_title">Name</div>';
-        $output .= '<div class="cart_item_text">'.$current_product["product_name"].'</div>';
+        $output .= '<div class="cart_item_text">'.$item["product_name"].'</div>';
         $output .= '</div>';
         $output .= '<div class="cart_item_price cart_info_col">';
         $output .= '<div class="cart_item_title">Price</div>';
-        $output .= '<div class="cart_item_text">KSHS '.$current_product["product_price"].'</div>';
+        $output .= '<div class="cart_item_text">KSHS '.$item["product_price"].'</div>';
         $output .= '</div>';
         $output .= '<div class="cart_item_price cart_info_col">';
         $output .= '<div class="cart_item_title">Remove</div>';
@@ -82,5 +79,27 @@ if(count($wishlist_items) > 0){
 }
 
 $data['wishlist_items'] = $output;
+
+$table_output = '';
+if(count($wishlist_items) > 0){
+    $table_output .= '<table class="table table-hover table-striped">';
+    $table_output .= '<thead><tr>';
+    $table_output .= '<th>Image</th>';
+    $table_output .= '<th>Product</th>';
+    $table_output .= '<th>Price</th>';
+    $table_output .= '</tr></thead><tbody>';
+    foreach($wishlist_items as $item){
+        $product_image = '<img src="'.public_url().'storage/products/'.$item["product_image"].'" class="img-thumbnail" alt="">';
+        $table_output .= '<tr>';
+        $table_output .= '<td class="wishlist-image">'.$product_image.'</td>';
+        $table_output .= '<td>'.$item["product_name"].'</td>';
+        $table_output .= '<td>'.$item["product_price"].'</td>';
+        $table_output .= '</tr>';
+    }
+    $table_output .= '</tbody>';
+    $table_output .= '</table>';
+}
+
+$data['wishlist_table'] = $table_output;
 
 echo json_encode($data);

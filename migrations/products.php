@@ -37,6 +37,17 @@ class Products_migration{
         return true;
     }
 
+    public function add_classification_id()
+    {
+        $query = "ALTER TABLE ".$this->table_name." ";
+        $query .= "ADD classification_id INT(11) NOT NULL ";
+        $query .= "AFTER category_id";
+
+        // execute query 
+        $this->conn->exec($query);
+        return true;
+    }
+
      // drop table 
      public function drop()
      {

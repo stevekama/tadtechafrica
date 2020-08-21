@@ -24,14 +24,16 @@ $query = '';
 $output = array();
 
 $query .= "SELECT ";
-$query .= "products.id, categories.category_name, products.product_name, ";
+$query .= "products.id, categories.category_name, product_classifications.classification	, products.product_name, ";
 $query .= "products.product_image, products.product_price, products.product_units ";
 $query .= "FROM products ";
 $query .= "INNER JOIN categories ON products.category_id = categories.id ";
+$query .= "INNER JOIN product_classifications ON products.classification_id = product_classifications.id ";
 // Bring  in search query
 if(isset($_POST["search"]["value"])){
 	$query .= "WHERE (";
 	$query .= "categories.category_name LIKE '%{$_POST["search"]["value"]}%' ";
+	$query .= "OR product_classifications.classification LIKE '%{$_POST["search"]["value"]}%' ";
     $query .= "OR products.product_name LIKE '%{$_POST["search"]["value"]}%' ";
     $query .= "OR products.product_price LIKE '%{$_POST["search"]["value"]}%' ";
     $query .= "OR products.product_units LIKE '%{$_POST["search"]["value"]}%'";
@@ -59,7 +61,8 @@ $data = array();
 while($row = $statement->fetch(PDO::FETCH_ASSOC)){
     $sub_array = array();
     $image = '<img src="'.public_url().'storage/products/'.$row["product_image"].'" alt="Product" class="img-circle img-size-32 mr-2"/>';
-    $sub_array[] = $row["category_name"];
+	$sub_array[] = $row["category_name"];
+	$sub_array[] = $row["classification"];
     $sub_array[] = $image;
     $sub_array[] = $row["product_name"];
     $sub_array[] = $row["product_price"];

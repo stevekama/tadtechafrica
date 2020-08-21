@@ -38,7 +38,7 @@ if($_POST['action'] == "FETCH_CUSTOMER"){
                     die();
                 }
 
-                $data[] = $current_customer;
+                $data['customer'] = $current_customer;
             }else{
                 $data['message'] = "errorCustomer";
             }

@@ -575,6 +575,7 @@ section
 	width: 100%;
 	height: 100%;
 }
+
 .header_search_input
 {
 	display: block;
@@ -1361,6 +1362,17 @@ select option
     cursor: pointer;
     vertical-align: top;
 }
+
+/******************************
+	Order containers
+******************************/
+
+#customerOrderItemsSection { display: none;}
+#customerDeliveryModeSection { display: none;}
+#customerTadLocationSection { display: none;}
+#customerDeliveryLocationSection { display: none;}
+#customerPaymentInfoSection { display: none;}
+
 
 /*********************************
 5. Newsletter

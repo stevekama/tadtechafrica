@@ -1,29 +1,80 @@
 <?php
 require_once('init/initialization.php');
+
 $title = "TadTechAfrica || Get upto date with the lattest tech";
+
 $page = "home";
 require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
+
 $products = new Products();
 // find all products 
 $all_products = $products->find_all();
+$classifications = new Product_Classification();
+// find all product cklassifications
+$product_classifications = $classifications->find_all();
+
+$product_promotions = new Product_Promotion();
 ?>
 <!-- Banner -->
 <div class="banner">
-    <div class="banner_background" style="background-image:url(<?php echo public_url(); ?>front/images/banner_background.jpg)"></div>
-    <div class="container fill_height">
-        <div class="row fill_height">
-            <div class="banner_product_image">
-                <img src="<?php echo public_url(); ?>front/images/banner_product.png" alt="">
-            </div>
-            <div class="col-lg-5 offset-lg-4 fill_height">
-                <div class="banner_content">
-                    <h1 class="banner_text">new era of smartphones</h1>
-                    <div class="banner_price"><span>$530</span>$460</div>
-                    <div class="banner_product_name">Apple Iphone 6s</div>
-                    <div class="button banner_button"><a href="#">Shop Now</a></div>
+    <div style="background-image:url(<?php echo public_url(); ?>front/images/banner_background.jpg)" class="banner_background"></div>
+    <div class="container fill_height banner_top_pictures owl-carousel owl-theme">
+        <?php
+        $promotions = $product_promotions->find_all();
+        if (count($promotions) > 0) { ?>
+            <?php
+            foreach ($promotions as $promotion) {
+                $current_product = $products->find_product_by_id($promotion['product_id']);
+            ?>
+                <div class="row fill_height">
+                    <div class="banner_product_image">
+                        <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>" alt="">
+                    </div>
+                    <div class="col-lg-5 offset-lg-4 fill_height">
+                        <div class="banner_content">
+                            <?php $current_classification = $classifications->find_by_id($promotion['classification_id']);?>
+                            <h1 class="banner_text">
+                                <?php echo htmlentities($current_classification['classification']); ?>
+                            </h1>
+                            <div class="banner_price">
+                                kshs <?php echo htmlentities($promotion['product_price']); ?>
+                            </div>
+                            <div class="banner_product_name">
+                                <?php echo htmlentities($promotion['product_name']) ?>
+                            </div>
+                            <div class="button banner_button">
+                                <a href="<?php echo base_url(); ?>landing/shop.php">
+                                    Shop Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php } else { ?>
+            <div class="row fill_height">
+                <div class="banner_product_image">
+                    <img src="<?php echo public_url(); ?>front/images/banner_product.png" alt="">
+                </div>
+                <div class="col-lg-5 offset-lg-4 fill_height">
+                    <div class="banner_content">
+                        <h1 class="banner_text">
+                            new era of smartphones
+                        </h1>
+                        <div class="banner_price">
+                            kshs 1000.00
+                        </div>
+                        <div class="banner_product_name">
+                            Apple Iphone 6s
+                        </div>
+                        <div class="button banner_button">
+                            <a href="#">Shop Now</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
+
     </div>
 </div>
 
@@ -31,54 +82,25 @@ $all_products = $products->find_all();
 <div class="characteristics">
     <div class="container">
         <div class="row">
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-                <div class="char_item d-flex flex-row align-items-center justify-content-start">
-                    <div class="char_icon">
-                        <img src="<?php echo public_url(); ?>front/images/char_1.png" alt="">
+            <?php if (count($product_classifications) > 0) { ?>
+                <?php foreach ($product_classifications as $classification) { ?>
+                    <!-- Char. Item -->
+                    <div id="<?php echo htmlentities($classification['id']); ?>" class="col-lg-3 col-md-6 char_col productsClassification">
+                        <div class="char_item d-flex flex-row align-items-center justify-content-start">
+                            <div class="char_icon">
+                                <img src="<?php echo public_url(); ?>front/images/char_1.png" alt="">
+                            </div>
+                            <div class="char_content">
+                                <div class="char_title">
+                                    <h3>
+                                        <?php echo htmlentities($classification['classification']); ?>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="char_content">
-                        <div class="char_title">Free Delivery</div>
-                        <div class="char_subtitle">from $50</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-
-                <div class="char_item d-flex flex-row align-items-center justify-content-start">
-                    <div class="char_icon"><img src="<?php echo public_url(); ?>front/images/char_2.png" alt=""></div>
-                    <div class="char_content">
-                        <div class="char_title">Free Delivery</div>
-                        <div class="char_subtitle">from $50</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-
-                <div class="char_item d-flex flex-row align-items-center justify-content-start">
-                    <div class="char_icon"><img src="<?php echo public_url(); ?>front/images/char_3.png" alt=""></div>
-                    <div class="char_content">
-                        <div class="char_title">Free Delivery</div>
-                        <div class="char_subtitle">from $50</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-
-                <div class="char_item d-flex flex-row align-items-center justify-content-start">
-                    <div class="char_icon"><img src="<?php echo public_url(); ?>front/images/char_4.png" alt=""></div>
-                    <div class="char_content">
-                        <div class="char_title">Free Delivery</div>
-                        <div class="char_subtitle">from $50</div>
-                    </div>
-                </div>
-            </div>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
 </div>
@@ -153,15 +175,20 @@ $all_products = $products->find_all();
                     <div class="tabbed_container">
                         <div class="tabs">
                             <ul class="clearfix">
-                                <li class="active">Featured</li>
+                                <li class="active">
+                                    featured
+                                </li>
                             </ul>
-                            <div class="tabs_line"><span></span></div>
+                            <div class="tabs_line">
+                                <span></span>
+                            </div>
                         </div>
 
                         <!-- Product Panel -->
                         <div class="product_panel panel active">
                             <div class="featured_slider slider">
-                                <?php if (count($all_products) > 0) {
+                                <?php
+                                if (count($all_products) > 0) {
                                     foreach ($all_products as $product) { ?>
                                         <!-- Slider Item -->
                                         <div id="<?php echo htmlentities($product['id']); ?>" class="featured_slider_item productDetailsBtn">
@@ -226,6 +253,7 @@ $all_products = $products->find_all();
         </div>
     </div>
 </div>
+
 
 <!-- Popular Categories -->
 <div class="popular_categories">
@@ -535,5 +563,44 @@ $all_products = $products->find_all();
 
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
 <script>
-    localStorage.clear();
+    $(document).ready(function() {
+        localStorage.clear();
+        initBanner();
+
+        function initBanner() {
+            if ($('.banner_top_pictures').length) {
+                var bannerPictures = $('.banner_top_pictures');
+                bannerPictures.owlCarousel({
+                    items: 1,
+                    // animateOut: 'slideOutDown',
+                    // animateIn: 'flipInX',
+                    lazyLoad: true,
+                    loop: true,
+                    margin: 150,
+                    stagePadding: 10,
+                    smartSpeed: 450
+                });
+            }
+        }
+
+        $(document).on('click', '.productsClassification', function() {
+            var action = "FETCH_CLASSIFICATION";
+            var classification_id = $(this).attr("id");
+            $.ajax({
+                url: "<?php echo base_url(); ?>api/classifications/product_classifications.php",
+                type: "POST",
+                data: {
+                    action: action,
+                    classification_id: classification_id
+                },
+                dataType: "json",
+                success: function(data) {
+                    var classification_id = $.trim(data.id);
+                    localStorage.setItem("classification_id", classification_id);
+                    window.location.href = "<?php echo base_url(); ?>landing/products_classification.php?classification=" + classification_id;
+                }
+            });
+
+        });
+    });
 </script>

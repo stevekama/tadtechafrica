@@ -27,6 +27,15 @@ if(!$current_category){
     $data['message'] = "errorCategory";
 }
 
+$classifications = new Product_Classification();
+$classification_id = htmlentities($_POST['classification_id']);
+$current_calassification = $classifications->find_by_id($classification_id);
+if(!$current_calassification){
+    $data['message'] = "errorClassification";
+    echo json_encode($data);
+    die();
+}
+
 $products = new Products();
 
 if(!empty($_POST['product_id'])){
@@ -37,8 +46,10 @@ if(!empty($_POST['product_id'])){
         echo json_encode($data);
         die();
     }
+
     $products->id = $current_product['id'];
     $products->category_id = $current_category['id'];
+    $products->classification_id = $current_calassification['id'];
     $products->product_name = $_POST['product_name'];
     $products->product_details = $_POST['details'];
     $products->product_description = $_POST['description'];
@@ -52,7 +63,9 @@ if(!empty($_POST['product_id'])){
         $data['message'] = "success";
     }
 }else{
+    $classifications = new Product_Classification();
     $products->category_id = $current_category['id'];
+    $products->classification_id = $current_calassification['id'];
     $products->product_name = $_POST['product_name'];
     $products->product_details = $_POST['details'];
     $products->product_description = $_POST['description'];

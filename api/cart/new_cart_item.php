@@ -41,7 +41,7 @@ if($session->is_logged_in()){
             $cart->order_id = htmlentities(0);
             $cart->product_id = $current_product['id'];
             // check if product is in the cart
-            $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
+            $product_item = $cart->find_cart_items_by_customer_id_and_product_id_and_cart_status($cart->customer_id, $cart->product_id, 'NEW');
             if ($product_item) {
                 $data['message'] = "productAdded";
                 echo json_encode($data);
@@ -74,7 +74,7 @@ if($session->is_logged_in()){
             $cart->order_id = htmlentities(0);
             $cart->product_id = $current_product['id'];
             // check if product is in the cart
-            $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
+            $product_item = $cart->find_cart_items_by_customer_id_and_product_id_and_cart_status($cart->customer_id, $cart->product_id, 'NEW');
             if ($product_item) {
                 $data['message'] = "productAdded";
                 echo json_encode($data);
@@ -108,7 +108,7 @@ if($session->is_logged_in()){
         $cart->order_id = 0;
         $cart->product_id = $current_product['id'];
         // check if product is in the cart
-        $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
+        $product_item = $cart->find_cart_items_by_customer_id_and_product_id_and_cart_status($cart->customer_id, $cart->product_id, 'NEW');
         if ($product_item) {
             $data['message'] = "productAdded";
             echo json_encode($data);
@@ -142,7 +142,7 @@ if($session->is_logged_in()){
     $cart->order_id = 0;
     $cart->product_id = $current_product['id'];
     // check if product is in the cart
-    $product_item = $cart->find_cart_items_by_customer_id_and_product_id($cart->customer_id, $cart->product_id);
+    $product_item = $cart->find_cart_items_by_customer_id_and_product_id_and_cart_status($cart->customer_id, $cart->product_id, 'NEW');
     if($product_item){
         $data['message'] = "productAdded";
         echo json_encode($data);

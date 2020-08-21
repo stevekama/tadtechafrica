@@ -42,6 +42,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'vendors' . DS . 'header.php');
                             <thead>
                                 <tr>
                                     <th>Category</th>
+                                    <th>Classification</th>
                                     <th>Image</th>
                                     <th>Product</th>
                                     <th>Price</th>
@@ -94,6 +95,26 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'vendors' . DS . 'header.php');
                                     <?php } ?>
                                 <?php }else{ ?>
                                     <option value="">No Categories</option>    
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newProductClassificationId">Classification</label>
+                            <?php 
+                            $classification = new Product_Classification(); 
+                            $product_classifications = $classification->find_all();
+                            ?>
+                            <select name="classification_id" id="newProductClassificationId" class="form-control">
+                                <option value="" disabled selected>Choose Product Classification</option>
+                                <?php if(count($product_classifications) > 0){ 
+                                    foreach($product_classifications as $classification){ ?>
+                                        <option value="<?php echo htmlentities($classification['id']) ?>">
+                                            <?php echo htmlentities($classification['classification']) ?>
+                                        </option>
+                                    <?php } ?>
+                                <?php }else{ ?>
+                                    <option value="">No Classificatioon</option>    
                                 <?php } ?>
                             </select>
                         </div>

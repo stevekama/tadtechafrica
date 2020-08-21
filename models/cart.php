@@ -112,9 +112,13 @@ class Cart{
     // find by order id and customer id 
     public function find_cart_items_by_customer_id_and_order_id($customer_id = 0, $order_id = 0)
     {
-        $query  = "SELECT * FROM ".$this->table_name." ";
-        $query .= "WHERE customer_id = :customer_id AND order_id = :order_id ";
-        $query .= "ORDER BY id DESC";
+        $query  = "SELECT ";
+        $query .= "cart.id, cart.quantity, cart.item_price, cart.total_price, ";
+        $query .= "products.product_name, products.product_image "; 
+        $query .= "FROM ".$this->table_name." ";
+        $query .= "INNER JOIN products ON cart.product_id = products.id ";
+        $query .= "WHERE cart.customer_id = :customer_id AND cart.order_id = :order_id ";
+        $query .= "ORDER BY cart.id DESC";
 
         // prepare query
         $stmt = $this->conn->prepare($query);
@@ -189,6 +193,32 @@ class Cart{
         }
     }
 
+    public function find_total_price_cart_item_by_customer_id_and_cart_status($customer_id = 0, $cart_status = "")
+    {
+        $query = "SELECT SUM(total_price) total FROM ".$this->table_name." ";
+        $query .= "WHERE customer_id = :customer_id AND cart_status = :cart_status ";
+        $query .= "ORDER BY id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // clean up 
+        $customer_id = htmlentities($customer_id);
+        $cart_status = htmlentities($cart_status);
+
+        // execute statemrent 
+        if($stmt->execute(array('customer_id'=>$customer_id, 'cart_status'=>$cart_status))){
+            // fetch data
+            $customer_object = array();
+            $count = $stmt->rowCount();
+            if($count > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $customer_object[] = $row;
+                }
+            }
+            return $customer_object;
+        }
+    }
 
     public function find_cart_items_by_loginstatus($loginstatus = "")
     {
@@ -264,10 +294,10 @@ class Cart{
         }
     }
 
-    public function find_cart_items_by_customer_id_and_product_id($customer_id=0, $product_id=0)
+    public function find_cart_items_by_customer_id_and_product_id_and_cart_status($customer_id=0, $product_id=0, $cart_status = "")
     {
         $query = "SELECT * FROM ".$this->table_name." ";
-        $query .= "WHERE customer_id = :customer_id AND product_id = :product_id ";
+        $query .= "WHERE customer_id = :customer_id AND product_id = :product_id AND cart_status = :cart_status ";
         $query .= "LIMIT 1";
 
         // prepare stmt
@@ -276,9 +306,10 @@ class Cart{
         // clean up
         $customer_id = htmlentities($customer_id);
         $product_id = htmlentities($product_id);
+        $cart_status = htmlentities($cart_status);
 
         // execute
-        if($stmt->execute(array('customer_id'=>$customer_id, 'product_id'=>$product_id))){
+        if($stmt->execute(array('customer_id'=>$customer_id, 'product_id'=>$product_id, 'cart_status'=>$cart_status))){
             $cart_item = $stmt->fetch(PDO::FETCH_ASSOC);
             return $cart_item;
         }

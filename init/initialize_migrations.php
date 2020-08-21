@@ -22,3 +22,18 @@ require_once(MIGRATION_PATH.DS.'customer_orders.php');
 
 // bring in mail
 require_once(MIGRATION_PATH.DS.'mail.php');
+
+// bring in delivery mode 
+require_once(MIGRATION_PATH.DS.'delivery_mode.php');
+
+// bring in delivery mode 
+require_once(MIGRATION_PATH.DS.'order_delivery.php');
+
+// bring in delivery mode 
+require_once(MIGRATION_PATH.DS.'customer_location.php');
+
+// bring in delivery mode 
+require_once(MIGRATION_PATH.DS.'product_classifications.php');
+
+// bring in delivery mode 
+require_once(MIGRATION_PATH.DS.'product_promotion.php');

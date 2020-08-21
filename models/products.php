@@ -12,6 +12,7 @@ class Products{
     // table properties
     public $id;
     public $category_id;
+    public $classification_id;
     public $product_name;
     public $product_image;
     public $product_details;
@@ -33,18 +34,18 @@ class Products{
         $query = "";
         if(empty($this->id)){
             $query .= "INSERT INTO ".$this->table_name."(";
-            $query .= "category_id, product_name, product_image, product_details, ";
+            $query .= "category_id, classification_id, product_name, product_image, product_details, ";
             $query .= "product_description, product_price, product_units, ";
             $query .= "product_status, created_date, edited_date";
             $query .= ")VALUES(";
-            $query .= ":category_id, :product_name, :product_image, :product_details, ";
+            $query .= ":category_id, :classification_id, :product_name, :product_image, :product_details, ";
             $query .= ":product_description, :product_price, :product_units, ";
             $query .= ":product_status, :created_date, :edited_date";
             $query .= ")";
 
         }else{
             $query .= "UPDATE ".$this->table_name." SET ";
-            $query .= "category_id = :category_id, product_name = :product_name, product_image = :product_image, product_details = :product_details, ";
+            $query .= "category_id = :category_id, classification_id = :classification_id, product_name = :product_name, product_image = :product_image, product_details = :product_details, ";
             $query .= "product_description = :product_description, product_price = :product_price, product_units = :product_units, ";
             $query .= "product_status = :product_status, created_date = :created_date, edited_date = :edited_date ";
             $query .= "WHERE id = :id";
@@ -58,6 +59,7 @@ class Products{
             $this->id = htmlentities($this->id);
         }
         $this->category_id = htmlentities($this->category_id);
+        $this->classification_id = htmlentities($this->classification_id);
         $this->product_name = htmlentities($this->product_name);
         $this->product_image = htmlentities($this->product_image);
         $this->product_details = htmlentities($this->product_details);
@@ -73,6 +75,7 @@ class Products{
             $stmt->bindParam(':id', $this->id);
         }
         $stmt->bindParam(':category_id', $this->category_id);
+        $stmt->bindParam(':classification_id', $this->classification_id);
         $stmt->bindParam(':product_name', $this->product_name);
         $stmt->bindParam(':product_image', $this->product_image);
         $stmt->bindParam(':product_details', $this->product_details);
@@ -184,11 +187,12 @@ class Products{
     public function find_all()
     {
         $query = "SELECT "; 
-        $query .= "products.id, categories.category_name, products.product_name, products.product_image, ";
+        $query .= "products.id, product_classifications.classification, categories.category_name, products.product_name, products.product_image, ";
         $query .= "products.product_details, products.product_price, products.product_status ";
         $query .= "FROM ".$this->table_name." ";
         $query .= "INNER JOIN categories ON products.category_id = categories.id ";
-        $query .= "ORDER BY id DESC";
+        $query .= "INNER JOIN product_classifications ON products.classification_id = product_classifications.id ";
+        $query .= "ORDER BY products.id DESC";
 
         // prepare statement
         $stmt = $this->conn->prepare($query);
@@ -204,6 +208,37 @@ class Products{
             }
             return $product_object;
         }
+    }
+    
+    public function find_products_by_classification_id($classification_id = "")
+    {
+        $query = "SELECT "; 
+        $query .= "products.id, product_classifications.classification, categories.category_name, products.product_name, products.product_image, ";
+        $query .= "products.product_details, products.product_price, products.product_status ";
+        $query .= "FROM ".$this->table_name." ";
+        $query .= "INNER JOIN categories ON products.category_id = categories.id ";
+        $query .= "INNER JOIN product_classifications ON products.classification_id = product_classifications.id ";
+        $query .= "WHERE products.classification_id = :classification_id ";
+        $query .= "ORDER BY products.id DESC";
+
+        // prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // clean up 
+        $classification_id = htmlentities($classification_id);
+
+        // execute statemrent 
+        if($stmt->execute(array('classification_id'=>$classification_id))){
+            $product_object = array();
+            $count_products = $stmt->rowCount();
+            if($count_products > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $product_object[] = $row;
+                }
+            }
+            return $product_object;
+        }
+        
     }
     
     public function find_product_by_id($id=0)

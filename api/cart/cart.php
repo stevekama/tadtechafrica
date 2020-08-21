@@ -78,8 +78,8 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
     // loop through cart items and display them
     $output = '';
     if(count($cart_items) > 0){
+        $output .= '<ul class="cart_list">';
         foreach($cart_items as $item){
-            $output .= '<ul class="cart_list">';
             $output .= '<li class="cart_item clearfix">';
             $output .= '<div class="cart_item_image">';
             $current_product = $products->find_product_by_id($item['product_id']);
@@ -108,12 +108,13 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
             $output .= '<a href="#" id="'.$item["id"].'" class="btn btn-link remove_item">Delete</a>';
             $output .= '</div>';
             $output .= '</div>';
-            $output .= '</div></li></ul>';
+            $output .= '</div></li>';
         }
+        $output .= '</ul>';
     }
     $data['cart_details'] = $output;
     // read total price 
-    $cart_prices = $cart->find_total_price_cart_item_by_customer_id($customer_id);
+    $cart_prices = $cart->find_total_price_cart_item_by_customer_id_and_cart_status($customer_id, "NEW");
     $total = 0;
     foreach($cart_prices as $total_price){
         $total += $total_price['total'];

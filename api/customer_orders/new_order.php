@@ -35,7 +35,9 @@ $customer_id = htmlentities($session->user_id);
 
 $cart = new Cart();
 
-$cart_item_prices = $cart->find_total_price_cart_item_by_customer_id($customer_id);
+$cart_status = "NEW";
+
+$cart_item_prices = $cart->find_total_price_cart_item_by_customer_id_and_cart_status($customer_id, $cart_status);
 
 $order_price = 0;
 
@@ -60,7 +62,7 @@ if($order->save()){
 
 // update cart items order id
 // find in cart where status is new and customer id
-$cart_status = "NEW";
+
 
 $cart_items = $cart->find_cart_items_by_cart_status($customer_id, $cart_status);
 
@@ -75,7 +77,7 @@ if(count($cart_items) > 0){
         $cart->item_price = $item['item_price'];
         $cart->total_price = $item['total_price'];
         $cart->loginstatus = $item['loginstatus'];
-        $cart->cart_status = "PENDING";
+        $cart->cart_status = "ORDERED";
         $cart->created_date = $item['created_date'];
         $cart->edited_date = $item['edited_date'];
         if($cart->save()){

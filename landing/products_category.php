@@ -28,7 +28,6 @@ $all_products = $products->find_products_by_category_id($current_category['id'])
 </div>
 
 <!-- Shop -->
-
 <div class="shop">
     <div class="container">
         <div class="row">
