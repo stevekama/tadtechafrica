@@ -97,6 +97,11 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="#" id="customerOrdersBtn">
+                                            My Orders <i class="fa fa-chevron-right ml-auto"></i>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="#" id="customerSettingsBtn">
                                             Settings<i class="fa fa-chevron-right"></i>
                                         </a>
@@ -172,6 +177,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
+
 
                         <!-- general form elements -->
                         <div id="customer_settings" class="card card-primary">

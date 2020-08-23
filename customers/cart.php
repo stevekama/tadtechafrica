@@ -49,6 +49,12 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                     localStorage.setItem('order_id', order_id);
                     window.location.href = "<?php echo base_url(); ?>customers/order.php?order="+order_id;
                 }
+
+                if(data.message == "userNotLoggedIn"){
+                    toastr.error('Please login to your customer account to continue...');
+                    window.location.href = "<?php echo base_url(); ?>landing/account.php";
+                    return false;
+                }
             }
         }); 
     });

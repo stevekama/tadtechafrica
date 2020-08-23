@@ -37,7 +37,7 @@ class Delivery_Mode{
         }else{
             $query .= "UPDATE ".$this->table_name." SET ";
             $query .= "delivery_mode = :delivery_mode, delivery_amount = :delivery_amount, mode_description = :mode_description, ";
-            $query .= "created_date = :created_date, edited_date = :edited_date";
+            $query .= "created_date = :created_date, edited_date = :edited_date ";
             $query .= "WHERE id = :id";
         }
 
@@ -95,6 +95,20 @@ class Delivery_Mode{
         }
     }
 
+    // delete 
+    public function delete($id=0)
+    {
+        $query = "DELETE FROM ".$this->table_name." WHERE id = :id";
+
+         // prepare statement
+         $stmt = $this->conn->prepare($query);
+                                                                                                                                                                                             
+         // execute statemrent 
+         if($stmt->execute(array('id'=>$id))){
+             return true;
+         }
+    }
+
     public function find_mode_by_id($id)
     {
         $query = "SELECT * FROM ".$this->table_name." ";
@@ -108,6 +122,24 @@ class Delivery_Mode{
 
         // execute
         if($stmt->execute(array("id"=>$id))){
+            $mode = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $mode;
+        }
+    }
+
+    public function find_mode_by_delivery_mode($delivery_mode = "")
+    {
+        $query = "SELECT * FROM ".$this->table_name." ";
+        $query .= "WHERE delivery_mode = :delivery_mode LIMIT 1";
+
+        // STATEMENT
+        $stmt = $this->conn->prepare($query);
+
+        /// clean up 
+        $delivery_mode = htmlentities($delivery_mode);
+
+        // execute
+        if($stmt->execute(array("delivery_mode"=>$delivery_mode))){
             $mode = $stmt->fetch(PDO::FETCH_ASSOC);
             return $mode;
         }

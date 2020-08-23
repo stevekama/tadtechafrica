@@ -13,7 +13,7 @@ $d = new DateTime();
 
 // check if customer is logged in
 if(!$session->is_logged_in()){
-    $data['messsaga'] = "userNotLoggedIn";
+    $data['message'] = "userNotLoggedIn";
     echo json_encode($data);
     die();
 }

@@ -10,8 +10,8 @@ defined('VENDOR_PATH') ? null : define('VENDOR_PATH', SITE_ROOT.DS.'vendor');
 defined('PUBLIC_PATH') ? null : define('PUBLIC_PATH', SITE_ROOT.DS.'public');
 defined('MIGRATION_PATH') ? null : define('MIGRATION_PATH', SITE_ROOT.DS.'migrations');
 
-$site_url = "https://tadtechafrica.com/";
-// $site_url = "http://localhost/tadtech_ecommas/";
+// $site_url = "https://tadtechafrica.com/";
+$site_url = "http://localhost/tadtech_ecommas/";
 
 // db connections
 require_once(CONFIG_PATH.DS.'database.php');

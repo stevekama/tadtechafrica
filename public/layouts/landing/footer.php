@@ -233,6 +233,7 @@
                                 if (data.message == "success") {
                                     toastr.success('Product has been successfully added to cart.');
                                     find_customer_cart_items();
+                                    window.location.href = "<?php echo base_url(); ?>customers/cart.php";
                                 }
                                 if (data.message == "productAdded") {
                                     toastr.error('Product already added in cart');

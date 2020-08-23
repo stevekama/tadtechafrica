@@ -29,6 +29,5 @@
             <script src="<?php echo public_url(); ?>back/dist/js/adminlte.min.js"></script>
             <!-- AdminLTE for demo purposes -->
             <script src="<?php echo public_url(); ?>back/dist/js/demo.js"></script>
-            </body>
-
-            </html>
+    </body>
+</html>

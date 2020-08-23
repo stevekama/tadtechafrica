@@ -117,6 +117,24 @@
                     </ul>
                 </li>
 
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-th-list"></i>
+                        <p>
+                            Delivery
+                            <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>vendors/delivery/mode.php" class="nav-link">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Delivery Mode</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-header">USER PROFILE</li>
 
                 <li class="nav-item has-treeview">

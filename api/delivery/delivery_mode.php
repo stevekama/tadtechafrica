@@ -23,3 +23,19 @@ if($_POST['action'] == "FETCH_MODE"){
     }
     echo json_encode($current_mode);
 }
+
+
+if($_POST['action'] == "DELETE_MODE"){
+    $delivery_mode_id = htmlentities($_POST['delivery_mode_id']);
+    $current_mode = $delivery_mode->find_mode_by_id($delivery_mode_id);
+    if(!$current_mode){
+        $data['message'] = "errorMode";
+        echo json_encode($data);
+        die();
+    }
+
+    if($delivery_mode->delete($current_mode['id'])){
+        $data['message'] = "success";
+    }
+    echo json_encode($data);
+}
