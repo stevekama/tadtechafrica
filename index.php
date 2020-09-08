@@ -1,606 +1,548 @@
-<?php
-require_once('init/initialization.php');
+<?php require_once('init/initialization.php'); ?>
+<!DOCTYPE html>
+<html lang="Eng">
+<head>
+	<title>Tadtech Africa | Online Store</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Tadtech Africa | Online Store">
+	<meta name="keywords" content="tadtech, tadtechafrica, computers, smart watches">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="<?php echo public_url(); ?>storage/logo/logo.ico" rel="shortcut icon"/>
 
-$title = "TadTechAfrica || Get upto date with the lattest tech";
+	<!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+    
+    <!-- fonts -->
+    <link rel="stylesheet" href="<?php echo public_url(); ?>fonts/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/flaticon.css"/>
 
-$page = "home";
-require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
-
-$products = new Products();
-// find all products 
-$all_products = $products->find_all();
-$classifications = new Product_Classification();
-// find all product cklassifications
-$product_classifications = $classifications->find_all();
-
-$product_promotions = new Product_Promotion();
-?>
-<!-- Banner -->
-<div class="banner">
-    <div style="background-image:url(<?php echo public_url(); ?>front/images/banner_background.jpg)" class="banner_background"></div>
-    <div class="container fill_height banner_top_pictures owl-carousel owl-theme">
-        <?php
-        $promotions = $product_promotions->find_all();
-        if (count($promotions) > 0) { ?>
-            <?php
-            foreach ($promotions as $promotion) {
-                $current_product = $products->find_product_by_id($promotion['product_id']);
-            ?>
-                <div class="row fill_height">
-                    <div class="banner_product_image">
-                        <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>" alt="">
-                    </div>
-                    <div class="col-lg-5 offset-lg-4 fill_height">
-                        <div class="banner_content">
-                            <?php $current_classification = $classifications->find_by_id($promotion['classification_id']);?>
-                            <h1 class="banner_text">
-                                <?php echo htmlentities($current_classification['classification']); ?>
-                            </h1>
-                            <div class="banner_price">
-                                kshs <?php echo htmlentities($promotion['product_price']); ?>
-                            </div>
-                            <div class="banner_product_name">
-                                <?php echo htmlentities($promotion['product_name']) ?>
-                            </div>
-                            <div class="button banner_button">
-                                <a href="<?php echo base_url(); ?>landing/shop.php">
-                                    Shop Now
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
-        <?php } else { ?>
-            <div class="row fill_height">
-                <div class="banner_product_image">
-                    <img src="<?php echo public_url(); ?>front/images/banner_product.png" alt="">
-                </div>
-                <div class="col-lg-5 offset-lg-4 fill_height">
-                    <div class="banner_content">
-                        <h1 class="banner_text">
-                            new era of smartphones
-                        </h1>
-                        <div class="banner_price">
-                            kshs 1000.00
-                        </div>
-                        <div class="banner_product_name">
-                            Apple Iphone 6s
-                        </div>
-                        <div class="button banner_button">
-                            <a href="#">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php } ?>
-
-    </div>
-</div>
-
-<!-- Characteristics -->
-<div class="characteristics">
-    <div class="container">
-        <div class="row">
-            <?php if (count($product_classifications) > 0) { ?>
-                <?php foreach ($product_classifications as $classification) { ?>
-                    <!-- Char. Item -->
-                    <div id="<?php echo htmlentities($classification['id']); ?>" class="col-lg-3 col-md-6 char_col productsClassification">
-                        <div class="char_item d-flex flex-row align-items-center justify-content-start">
-                            <div class="char_icon">
-                                <img src="<?php echo public_url(); ?>front/images/char_1.png" alt="">
-                            </div>
-                            <div class="char_content">
-                                <div class="char_title">
-                                    <h3>
-                                        <?php echo htmlentities($classification['classification']); ?>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            <?php } ?>
-        </div>
-    </div>
-</div>
-
-<!-- Deals of the week -->
-<div class="deals_featured">
-    <div class="container">
-        <div class="row">
-            <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
-                <!-- Deals -->
-                <div class="deals">
-                    <div class="deals_title">Deals of the Week</div>
-                    <div class="deals_slider_container">
-                        <!-- Deals Slider -->
-                        <div class="owl-carousel owl-theme deals_slider">
-                            <?php if (count($all_products) > 0) { ?>
-                                <?php foreach ($all_products as $product) { ?>
-                                    <!-- Deals Item -->
-                                    <div id="<?php echo htmlentities($product['id']); ?>" class="owl-item deals_item productDetailsBtn">
-                                        <div class="deals_image">
-                                            <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
-                                        </div>
-                                        <div class="deals_content">
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-
-                                                <div class="deals_item_category">
-                                                    <a href="#">
-                                                        <?php echo htmlentities($product['category_name']); ?>
-                                                    </a>
-                                                </div>
-
-                                            </div>
-                                            <div class="deals_info_line d-flex flex-row justify-content-start">
-                                                <div class="deals_item_name">
-                                                    <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
-                                                </div>
-                                                <div class="deals_item_price ml-auto">KShs.<?php echo htmlentities($product['product_price']); ?></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            <?php } else { ?>
-                                <!-- Deals Item -->
-                                <div class="owl-item deals_item">
-                                    <div class="deals_image">
-                                        <img src="<?php echo public_url(); ?>storage/products/noimage.png" alt="">
-                                    </div>
-                                    <div class="deals_content">
-                                        <div class="deals_info_line d-flex flex-row justify-content-start">
-                                            <div class="deals_item_name">
-                                                <a href="<?php echo base_url(); ?>">Welcome TadTech</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-
-                    <div class="deals_slider_nav_container">
-                        <div class="deals_slider_prev deals_slider_nav">
-                            <i class="fa fa-chevron-left ml-auto"></i>
-                        </div>
-                        <div class="deals_slider_next deals_slider_nav">
-                            <i class="fa fa-chevron-right ml-auto"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Featured -->
-                <div class="featured">
-                    <div class="tabbed_container">
-                        <div class="tabs">
-                            <ul class="clearfix">
-                                <li class="active">
-                                    featured
-                                </li>
-                            </ul>
-                            <div class="tabs_line">
-                                <span></span>
-                            </div>
-                        </div>
-
-                        <!-- Product Panel -->
-                        <div class="product_panel panel active">
-                            <div class="featured_slider slider">
-                                <?php
-                                if (count($all_products) > 0) {
-                                    foreach ($all_products as $product) { ?>
-                                        <!-- Slider Item -->
-                                        <div id="<?php echo htmlentities($product['id']); ?>" class="featured_slider_item productDetailsBtn">
-                                            <div class="border_active"></div>
-                                            <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                                <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                    <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
-                                                </div>
-                                                <div class="product_content">
-                                                    <div class="product_price discount">KShs.<?php echo htmlentities($product['product_price']); ?></div>
-                                                    <div class="product_name">
-                                                        <div>
-                                                            <a href="#" id="<?php echo htmlentities($product['id']); ?>">
-                                                                <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product_extras">
-                                                        <!-- <button id="<?php echo htmlentities($product['id']); ?>" class="product_cart_button productAddToCart">
-                                                            Add to Cart
-                                                        </button> -->
-                                                    </div>
-                                                </div>
-                                                <div id="<?php echo htmlentities($product['id']); ?>" class="product_fav productAddToWhishlist">
-                                                    <i class="fa fa-heart"></i>
-                                                </div>
-                                                <ul class="product_marks">
-                                                    <li class="product_mark product_new">
-                                                        <?php echo htmlentities($product['product_status']); ?>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                <?php } else { ?>
-                                    <!-- Slider Item -->
-                                    <div class="featured_slider_item">
-                                        <div class="border_active"></div>
-                                        <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                <img src="<?php echo public_url(); ?>storage/products/noimage.png" alt="">
-                                            </div>
-                                            <div class="product_content">
-                                                <div class="product_price">$379</div>
-                                                <div class="product_name">
-                                                    <div>
-                                                        <a href="<?php echo base_url(); ?>">
-                                                            Welcome TadTech
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                            <div class="featured_slider_dots_cover"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<!-- Libraries -->
+	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/bootstrap.min.css"/>
+	
+	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/slicknav.min.css"/>
+	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="<?php echo public_url(); ?>front/css/owl.carousel.min.css"/>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="<?php echo public_url(); ?>front/css/animate.css"/>
+    
+	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/style.css"/>
 
 
-<!-- Popular Categories -->
-<div class="popular_categories">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="popular_categories_content">
-                    <div class="popular_categories_title">Popular Categories</div>
-                    <div class="popular_categories_slider_nav">
-                        <div class="popular_categories_prev popular_categories_nav"><i class="fa fa-angle-left ml-auto"></i></div>
-                        <div class="popular_categories_next popular_categories_nav"><i class="fa fa-angle-right ml-auto"></i></div>
-                    </div>
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 
-                </div>
-            </div>
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
 
-            <!-- Popular Categories Slider -->
-
-            <div class="col-lg-9">
-                <div class="popular_categories_slider_container">
-                    <div class="owl-carousel owl-theme popular_categories_slider">
-                        <?php if (count($product_categories) > 0) {
-                            foreach ($product_categories as $category) { ?>
-                                <!-- Popular Categories Item -->
-                                <div class="owl-item">
-                                    <div class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                        <div class="popular_category_image">
-                                            <img src="<?php echo public_url(); ?>storage/categories/<?php echo htmlentities($category['category_image']); ?>" alt="">
-                                        </div>
-                                        <div class="popular_category_text">
-                                            <?php echo htmlentities($category['category_name']);  ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <!-- Popular Categories Item -->
-                            <div class="owl-item">
-                                <div class="popular_category d-flex flex-column align-items-center justify-content-center">
-                                    <div class="popular_category_image">
-                                        <img src="<?php echo public_url(); ?>storage/categories/noimage.png" alt="">
-                                    </div>
-                                    <div class="popular_category_text">
-                                        No Categories
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Banner -->
-<div class="banner_2">
-    <div class="banner_2_background" style="background-image:url(<?php echo public_url(); ?>front/images/banner_2_background.jpg)"></div>
-    <div class="banner_2_container">
-        <div class="banner_2_dots"></div>
-        <!-- Banner 2 Slider -->
-        <div class="owl-carousel owl-theme banner_2_slider">
-            <?php if (count($all_products) > 0) {
-
-                foreach ($all_products as $product) { ?>
-                    <!-- Banner 2 Slider Item -->
-                    <div class="owl-item">
-                        <div class="banner_2_item">
-                            <div class="container fill_height">
-                                <div class="row fill_height">
-                                    <div class="col-lg-4 col-md-6 fill_height">
-                                        <div class="banner_2_content">
-                                            <div class="banner_2_category">
-                                                <?php echo htmlentities($product['category_name']); ?>
-                                            </div>
-                                            <div class="banner_2_title">
-                                                <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
-                                            </div>
-                                            <div class="banner_2_text">
-                                                <?php echo htmlentities(truncate_string($product['product_details'], 100)); ?>
-                                            </div>
-                                            <div class="rating_r rating_r_4 banner_2_rating">
-                                                <i></i><i></i><i></i><i></i><i></i>
-                                            </div>
-                                            <div class="button banner_2_button">
-                                                <a href="#">Explore</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8 col-md-6 fill_height">
-                                        <div class="banner_2_image_container">
-                                            <div class="banner_2_image">
-                                                <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
-            <?php } else { ?>
-                <!-- Banner 2 Slider Item -->
-                <div class="owl-item">
-                    <div class="banner_2_item">
-                        <div class="container fill_height">
-                            <div class="row fill_height">
-                                <div class="col-lg-4 col-md-6 fill_height">
-                                    <div class="banner_2_content">
-                                        <div class="banner_2_category">No Category</div>
-                                        <div class="banner_2_title">TadTech Africa</div>
-                                        <div class="banner_2_text">
-                                            Welcome to TadTech Africa
-                                        </div>
-                                        <div class="rating_r rating_r_4 banner_2_rating">
-                                            <i></i><i></i><i></i><i></i><i></i>
-                                        </div>
-                                        <div class="button banner_2_button">
-                                            <a href="<?php echo base_url(); ?>">Explore</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-8 col-md-6 fill_height">
-                                    <div class="banner_2_image_container">
-                                        <div class="banner_2_image">
-                                            <img src="<?php echo public_url(); ?>storage/products/noimage.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</div>
-
-<!-- Hot New Arrivals -->
-<div class="new_arrivals">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="tabbed_container">
-                    <div class="tabs clearfix tabs-right">
-                        <div class="new_arrivals_title">Hot New Arrivals</div>
-                        <ul class="clearfix">
-                            <li class="active">
-                                Top Featured
-                            </li>
+	<!-- Header section -->
+	<header class="header-section">
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2 text-center text-lg-left">
+						<!-- logo -->
+						<a href="<?php echo base_url(); ?>" class="site-logo">
+							<img src="<?php echo public_url(); ?>storage/logo/logo.png" alt="">
+						</a>
+					</div>
+					<div class="col-xl-6 col-lg-5">
+						<form class="header-search-form">
+							<input type="text" placeholder="Search on divisima ....">
+							<button><i class="flaticon-search"></i></button>
+						</form>
+					</div>
+					<div class="col-xl-4 col-lg-5">
+						<div class="user-panel">
+							<div class="up-item">
+								<i class="flaticon-profile"></i>
+								<a href="#">Sign</a> In or <a href="#">Create Account</a>
+							</div>
+							<div class="up-item">
+								<div class="shopping-card">
+									<i class="flaticon-bag"></i>
+									<span>0</span>
+								</div>
+								<a href="#">Shopping Cart</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="main-navbar">
+			<div class="container">
+				<!-- menu -->
+				<ul class="main-menu">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Women</a></li>
+					<li><a href="#">Men</a></li>
+					<li>
+                        <a href="#">
+                            Jewelry
+                            <!-- <span class="new">New</span> -->
+                        </a>
+                    </li>
+					<li>
+                        <a href="#">Shoes</a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Sneakers</a></li>
+                            <li><a href="#">Sandals</a></li>
+                            <li><a href="#">Formal Shoes</a></li>
+                            <li><a href="#">Boots</a></li>
+                            <li><a href="#">Flip Flops</a></li>
                         </ul>
-                        <div class="tabs_line"><span></span></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12" style="z-index:1;">
-                            <!-- Product Panel -->
-                            <div class="product_panel panel active">
-                                <div class="arrivals_slider slider">
-                                    <?php if (count($all_products) > 0) {
-                                        foreach ($all_products as $product) { ?>
-                                            <!-- Slider Item -->
-                                            <div id="<?php echo htmlentities($product['id']); ?>" class="arrivals_slider_item productDetailsBtn">
-                                                <div class="border_active"></div>
-                                                <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                                    <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                        <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
-                                                    </div>
-                                                    <div class="product_content">
-                                                        <div class="product_price">
-                                                            KShs.<?php echo htmlentities($product['product_price']); ?>
-                                                        </div>
-                                                        <div class="product_name">
-                                                            <div>
-                                                                <a href="#">
-                                                                    <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="product_extras">
-                                                            <button class="product_cart_button">Add to Cart</button>
-                                                        </div> -->
-                                                    </div>
-                                                    <div id="<?php echo htmlentities($product['id']); ?>" class="product_fav productAddToWhishlist">
-                                                        <i class="fa fa-heart"></i>
-                                                    </div>
-                                                    <ul class="product_marks">
-                                                        <li class="product_mark product_new">
-                                                            <?php echo htmlentities($product['product_status']); ?>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-                                    <?php } else { ?>
-                                        <!-- Slider Item -->
-                                        <div class="arrivals_slider_item">
-                                            <div class="border_active"></div>
-                                            <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                                <div class="product_image d-flex flex-column align-items-center justify-content-center">
-                                                    <img src="<?php echo public_url(); ?>storage/products/noimage.png" alt="">
-                                                </div>
-                                                <div class="product_content">
-                                                    <div class="product_price"></div>
-                                                    <div class="product_name">
-                                                        <div><a href="<?php echo base_url(); ?>">Welcome To TadTech Africa</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                                <div class="arrivals_slider_dots_cover"></div>
-                            </div>
-                        </div>
-                    </div>
+                    </li>
+
+					<li><a href="#">Pages</a>
+						<ul class="sub-menu">
+							<li><a href="./product.html">Product Page</a></li>
+							<li><a href="./category.html">Category Page</a></li>
+							<li><a href="./cart.html">Cart Page</a></li>
+							<li><a href="./checkout.html">Checkout Page</a></li>
+							<li><a href="./contact.html">Contact Page</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Blog</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+    <!-- Header section end -->
+    
+	<!-- Hero section -->
+	<section class="hero-section">
+		<div class="hero-slider owl-carousel">
+			<div class="hs-item set-bg" data-setbg="<?php echo public_url(); ?>front/images/bg.jpg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-6 col-lg-7 text-white">
+							<span>New Arrivals</span>
+							<h2>denim jackets</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum sus-pendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
+							<a href="#" class="site-btn sb-line">DISCOVER</a>
+							<a href="#" class="site-btn sb-white">ADD TO CART</a>
+						</div>
+					</div>
+					<div class="offer-card text-white">
+						<span>from</span>
+						<h2>$29</h2>
+						<p>SHOP NOW</p>
+					</div>
+				</div>
+			</div>
+			<div class="hs-item set-bg" data-setbg="<?php echo public_url(); ?>front/images/bg-2.jpg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-6 col-lg-7 text-white">
+							<span>New Arrivals</span>
+							<h2>denim jackets</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum sus-pendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
+							<a href="#" class="site-btn sb-line">DISCOVER</a>
+							<a href="#" class="site-btn sb-white">ADD TO CART</a>
+						</div>
+					</div>
+					<div class="offer-card text-white">
+						<span>from</span>
+						<h2>$29</h2>
+						<p>SHOP NOW</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="slide-num-holder" id="snh-1"></div>
+		</div>
+	</section>
+    <!-- Hero section end -->
+    
+	<!-- Features section -->
+	<section class="features-section">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 p-0 feature">
+					<div class="feature-inner">
+						<div class="feature-icon">
+							<img src="<?php echo public_url(); ?>front/images/icons/1.png" alt="#">
+						</div>
+						<h2>Fast Secure Payments</h2>
+					</div>
+				</div>
+				<div class="col-md-4 p-0 feature">
+					<div class="feature-inner">
+						<div class="feature-icon">
+							<img src="<?php echo public_url(); ?>front/images/icons/2.png" alt="#">
+						</div>
+						<h2>Premium Products</h2>
+					</div>
+				</div>
+				<div class="col-md-4 p-0 feature">
+					<div class="feature-inner">
+						<div class="feature-icon">
+							<img src="<?php echo public_url(); ?>front/images/icons/3.png" alt="#">
+						</div>
+						<h2>Free & fast Delivery</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    <!-- Features section end -->
+    
+	<!-- letest product section -->
+	<section class="top-letest-product-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>LATEST PRODUCTS</h2>
+			</div>
+			<div class="product-slider owl-carousel">
+				<div class="product-item">
+					<div class="pi-pic">
+						<img src="<?php echo public_url(); ?>front/images/product/1.jpg" alt="">
+						<div class="pi-links">
+							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+						</div>
+					</div>
+					<div class="pi-text">
+						<h6>$35,00</h6>
+						<p>Flamboyant Pink Top </p>
+					</div>
+				</div>
+				<div class="product-item">
+					<div class="pi-pic">
+						<div class="tag-new">New</div>
+						<img src="<?php echo public_url(); ?>front/images/product/2.jpg" alt="">
+						<div class="pi-links">
+							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+						</div>
+					</div>
+					<div class="pi-text">
+						<h6>$35,00</h6>
+						<p>Black and White Stripes Dress</p>
+					</div>
+				</div>
+				<div class="product-item">
+					<div class="pi-pic">
+						<img src="<?php echo public_url(); ?>front/images/product/3.jpg" alt="">
+						<div class="pi-links">
+							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+						</div>
+					</div>
+					<div class="pi-text">
+						<h6>$35,00</h6>
+						<p>Flamboyant Pink Top </p>
+					</div>
+				</div>
+				<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/4.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+				<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/6.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+			</div>
+		</div>
+	</section>
+    <!-- letest product section end -->
+    
+	<!-- Product filter section -->
+	<section class="product-filter-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>BROWSE TOP SELLING PRODUCTS</h2>
+			</div>
+			<ul class="product-filter-menu">
+				<li><a href="#">TOPS</a></li>
+				<li><a href="#">JUMPSUITS</a></li>
+				<li><a href="#">LINGERIE</a></li>
+				<li><a href="#">JEANS</a></li>
+				<li><a href="#">DRESSES</a></li>
+				<li><a href="#">COATS</a></li>
+				<li><a href="#">JUMPERS</a></li>
+				<li><a href="#">LEGGINGS</a></li>
+			</ul>
+			<div class="row">
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/5.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<div class="tag-sale">ON SALE</div>
+							<img src="<?php echo public_url(); ?>front/images/product/6.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Black and White Stripes Dress</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/7.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/8.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/9.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/10.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Black and White Stripes Dress</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/11.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<img src="<?php echo public_url(); ?>front/images/product/12.jpg" alt="">
+							<div class="pi-links">
+								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>$35,00</h6>
+							<p>Flamboyant Pink Top </p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center pt-5">
+				<button class="site-btn sb-line sb-dark">LOAD MORE</button>
+			</div>
+		</div>
+	</section>
+    <!-- Product filter section end -->
+    
+	<!-- Banner section -->
+	<section class="banner-section">
+		<div class="container">
+			<div class="banner set-bg" data-setbg="<?php echo public_url(); ?>front/images/banner-bg.jpg">
+				<div class="tag-new">NEW</div>
+				<span>New Arrivals</span>
+				<h2>STRIPED SHIRTS</h2>
+				<a href="#" class="site-btn">SHOP NOW</a>
+			</div>
+		</div>
+	</section>
+    <!-- Banner section end  -->
+    
+	<!-- Footer section -->
+	<section class="footer-section">
+		<div class="container">
+			<div class="footer-logo text-center">
+				<a href="<?php echo base_url(); ?>"><img src="<?php echo public_url(); ?>storage/logo/logo.png" alt=""></a>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget about-widget">
+						<h2>About</h2>
+						<p>Donec vitae purus nunc. Morbi faucibus erat sit amet congue mattis. Nullam frin-gilla faucibus urna, id dapibus erat iaculis ut. Integer ac sem.</p>
+						<img src="<?php echo public_url(); ?>front/images/cards.png" alt="">
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget about-widget">
+						<h2>Questions</h2>
+						<ul>
+							<li><a href="">About Us</a></li>
+							<li><a href="">Track Orders</a></li>
+							<li><a href="">Returns</a></li>
+							<li><a href="">Jobs</a></li>
+							<li><a href="">Shipping</a></li>
+							<li><a href="">Blog</a></li>
+						</ul>
+						<ul>
+							<li><a href="">Partners</a></li>
+							<li><a href="">Bloggers</a></li>
+							<li><a href="">Support</a></li>
+							<li><a href="">Terms of Use</a></li>
+							<li><a href="">Press</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget about-widget">
+						<h2>Questions</h2>
+						<div class="fw-latest-post-widget">
+							<div class="lp-item">
+								<div class="lp-thumb set-bg" data-setbg="<?php echo public_url(); ?>front/images/blog-thumbs/1.jpg"></div>
+								<div class="lp-content">
+									<h6>what shoes to wear</h6>
+									<span>Oct 21, 2018</span>
+									<a href="#" class="readmore">Read More</a>
+								</div>
+							</div>
+							<div class="lp-item">
+								<div class="lp-thumb set-bg" data-setbg="<?php echo public_url(); ?>front/images/blog-thumbs/2.jpg"></div>
+								<div class="lp-content">
+									<h6>trends this year</h6>
+									<span>Oct 21, 2018</span>
+									<a href="#" class="readmore">Read More</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="footer-widget contact-widget">
+						<h2>Questions</h2>
+						<div class="con-info">
+							<span>C.</span>
+							<p>Your Company Ltd </p>
+						</div>
+						<div class="con-info">
+							<span>B.</span>
+							<p>1481 Creekside Lane  Avila Beach, CA 93424, P.O. BOX 68 </p>
+						</div>
+						<div class="con-info">
+							<span>T.</span>
+							<p>+53 345 7953 32453</p>
+						</div>
+						<div class="con-info">
+							<span>E.</span>
+							<p>office@youremail.com</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="social-links-warp">
+			<div class="container">
+				<div class="social-links">
+					<a href="" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a>
+					<a href="" class="google-plus"><i class="fa fa-google-plus"></i><span>g+plus</span></a>
+					<a href="" class="pinterest"><i class="fa fa-pinterest"></i><span>pinterest</span></a>
+					<a href="" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a>
+					<a href="" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a>
+					<a href="" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
+					<a href="" class="tumblr"><i class="fa fa-tumblr-square"></i><span>tumblr</span></a>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+                
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> 
+                <p class="text-white text-center mt-5">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </p>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
-<!-- Best Sellers -->
-<div class="best_sellers">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="tabbed_container">
-                    <div class="tabs clearfix tabs-right">
-                        <div class="new_arrivals_title">Hot Best Sellers</div>
-                        <ul class="clearfix">
-                            <li class="active">Top 20</li>
-                        </ul>
-                        <div class="tabs_line"><span></span></div>
-                    </div>
+			</div>
+		</div>
+	</section>
+    <!-- Footer section end -->
+    
+	<!--====== Javascripts & Jquery ======-->
+	<script src="<?php echo public_url(); ?>front/js/jquery-3.2.1.min.js"></script>
+	<script src="<?php echo public_url(); ?>front/js/bootstrap.min.js"></script>
+	<script src="<?php echo public_url(); ?>front/js/jquery.slicknav.min.js"></script>
+	<script src="<?php echo public_url(); ?>front/js/owl.carousel.min.js"></script>
+	<script src="<?php echo public_url(); ?>front/js/jquery.nicescroll.min.js"></script>
+	<script src="<?php echo public_url(); ?>front/js/jquery.zoom.min.js"></script>
+	<script src="<?php echo public_url(); ?>front/js/jquery-ui.min.js"></script>
+	<script src="<?php echo public_url(); ?>front/js/main.js"></script>
 
-                    <div class="bestsellers_panel panel active">
-
-                        <!-- Best Sellers Slider -->
-                        <div class="bestsellers_slider slider">
-                            <?php if (count($all_products) > 0) {
-                                foreach ($all_products as $product) { ?>
-                                    <!-- Best Sellers Item -->
-                                    <div id="<?php echo htmlentities($product['id']); ?>" class="bestsellers_item discount productDetailsBtn">
-                                        <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-                                            <div class="bestsellers_image">
-                                                <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
-                                            </div>
-                                            <div class="bestsellers_content">
-                                                <div class="bestsellers_category">
-                                                    <a href="#">
-                                                        <?php echo htmlentities($product['category_name']); ?>
-                                                    </a>
-                                                </div>
-                                                <div class="bestsellers_name">
-                                                    <a href="#" class="productDetails" id="<?php echo htmlentities($product['id']); ?>">
-                                                        <?php echo htmlentities(truncate_string($product['product_name'], 50)); ?>
-                                                    </a>
-                                                </div>
-                                                <div class="rating_r rating_r_4 bestsellers_rating">
-                                                    <i></i><i></i><i></i><i></i><i></i>
-                                                </div>
-                                                <div class="bestsellers_price discount">
-                                                    KShs.<?php echo htmlentities($product['product_price']); ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="bestsellers_fav"><i class="fa fa-heart"></i></div>
-                                        <ul class="bestsellers_marks">
-                                            <li class="bestsellers_mark bestsellers_new">
-                                                <?php echo htmlentities($product['product_status']); ?>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                <?php } ?>
-                            <?php } else { ?>
-                                <!-- Best Sellers Item -->
-                                <div class="bestsellers_item discount">
-                                    <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
-                                        <div class="bestsellers_image">
-                                            <img src="<?php echo public_url(); ?>storage/products/noimage.png" alt="">
-                                        </div>
-                                        <div class="bestsellers_content">
-                                            <div class="bestsellers_category">
-                                                <a href="#">No Categories</a>
-                                            </div>
-                                            <div class="bestsellers_name">
-                                                <a href="<?php echo base_url(); ?>">
-                                                    Welcome TadTech
-                                                </a>
-                                            </div>
-                                            <div class="rating_r rating_r_4 bestsellers_rating">
-                                                <i></i><i></i><i></i><i></i><i></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
-<script>
-    $(document).ready(function() {
-        localStorage.clear();
-        initBanner();
-
-        function initBanner() {
-            if ($('.banner_top_pictures').length) {
-                var bannerPictures = $('.banner_top_pictures');
-                bannerPictures.owlCarousel({
-                    items: 1,
-                    // animateOut: 'slideOutDown',
-                    // animateIn: 'flipInX',
-                    lazyLoad: true,
-                    loop: true,
-                    margin: 150,
-                    stagePadding: 10,
-                    smartSpeed: 450
-                });
-            }
-        }
-
-        $(document).on('click', '.productsClassification', function() {
-            var action = "FETCH_CLASSIFICATION";
-            var classification_id = $(this).attr("id");
-            $.ajax({
-                url: "<?php echo base_url(); ?>api/classifications/product_classifications.php",
-                type: "POST",
-                data: {
-                    action: action,
-                    classification_id: classification_id
-                },
-                dataType: "json",
-                success: function(data) {
-                    var classification_id = $.trim(data.id);
-                    localStorage.setItem("classification_id", classification_id);
-                    window.location.href = "<?php echo base_url(); ?>landing/products_classification.php?classification=" + classification_id;
-                }
-            });
-
-        });
-    });
-</script>
+	</body>
+</html>

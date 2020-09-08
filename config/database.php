@@ -1,14 +1,14 @@
 <?php
 class Database{
-    private $host = 'localhost';
-    private $username = 'tadteica_steve';
-    private $password = 'stevekama';
-    private $dbname = 'tadteica_tadtechafrica';
-    
 //     private $host = 'localhost';
-//     private $username = 'root';
-//     private $password = '';
-//     private $dbname = 'tadtech_ecommas';
+//     private $username = 'tadteica_steve';
+//     private $password = 'stevekama';
+//     private $dbname = 'tadteica_tadtechafrica';
+    
+    private $host = 'localhost';
+    private $username = 'root';
+    private $password = '';
+    private $dbname = 'tadtechafrica';
 
     private $conn;
 
