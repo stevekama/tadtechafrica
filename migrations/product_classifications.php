@@ -21,9 +21,6 @@ class Product_Classification_migration{
         $query = "CREATE TABLE IF NOT EXISTS ".$this->table_name."(";
         $query .= "id INT(11) UNSIGNED  NOT NULL PRIMARY KEY AUTO_INCREMENT, ";
         $query .= "classification VARCHAR(100) NOT NULL, ";
-        $query .= "status VARCHAR(100) NOT NULL, ";
-        $query .= "description TEXT NOT NULL, ";
-        $query .= "classification_image VARCHAR(200) NOT NULL, ";
         $query .= "created_date TIMESTAMP NULL DEFAULT NULL, ";
         $query .= "edited_date TIMESTAMP NULL DEFAULT NULL";
         $query .= ")";

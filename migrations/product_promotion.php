@@ -24,6 +24,7 @@ class Product_Promotion_migration{
         $query .= "category_id INT(11) NOT NULL, ";
         $query .= "product_id INT(11) NOT NULL, ";
         $query .= "product_name VARCHAR(200) NOT NULL, ";
+        $query .= "banner_image VARCHAR(200) NOT NULL, ";
         $query .= "product_price VARCHAR(200) NOT NULL, ";
         $query .= "created_date TIMESTAMP NULL DEFAULT NULL, ";
         $query .= "edited_date TIMESTAMP NULL DEFAULT NULL";

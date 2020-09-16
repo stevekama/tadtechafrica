@@ -26,16 +26,19 @@ if(!$current_product){
 
 $product_promotion = new Product_Promotion();
 
-$product_promotion->classification_id = $current_product['classification_id'];
-$product_promotion->category_id= $current_product['category_id'];
-$product_promotion->product_id = $current_product['id'];
-$product_promotion->product_name = $current_product['product_name'];
-$product_promotion->product_price = $current_product['product_price'];
-$product_promotion->created_date = $current_product['created_date'];
-$product_promotion->edited_date = $d->format("Y-m-d H:i:s");
-
-if($product_promotion->save()){
-    $data['message'] = "success";
+if ($_FILES['banner_image']['type']) {
+    $product_promotion->classification_id = $current_product['classification_id'];
+    $product_promotion->category_id = $current_product['category_id'];
+    $product_promotion->product_id = $current_product['id'];
+    $product_promotion->product_name = $current_product['product_name'];
+    $product_promotion->attach_file($_FILES['banner_image']);
+    $product_promotion->product_price = $current_product['product_price'];
+    $product_promotion->created_date = $current_product['created_date'];
+    $product_promotion->edited_date = $d->format("Y-m-d H:i:s");
+    if($product_promotion->save_banner()){
+        $data['message'] = "success";
+    }
 }
+
 
 echo json_encode($data);

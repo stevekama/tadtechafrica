@@ -24,7 +24,7 @@ $query = '';
 $output = array();
 
 $query .= "SELECT ";
-$query .= "product_promotion.id, product_promotion.product_name, product_promotion.product_price, ";
+$query .= "product_promotion.id, product_promotion.product_name, product_promotion.product_price, product_promotion.banner_image, ";
 $query .= "categories.category_name, product_classifications.classification ";
 $query .= "FROM product_promotion ";
 $query .= "INNER JOIN categories ON product_promotion.category_id = categories.id ";
@@ -59,10 +59,12 @@ $filtered_rows = $statement->rowCount();
 $data = array();
 
 while($row = $statement->fetch(PDO::FETCH_ASSOC)){
-    $sub_array = array();
+	$sub_array = array();
+	$image = '<img src="'.public_url().'storage/banner/'.$row["banner_image"].'" alt="Product" class="img-circle img-size-32 mr-2"/>';
     $sub_array[] = $row["classification"];
     $sub_array[] = $row["category_name"];
-    $sub_array[] = $row["product_name"];
+	$sub_array[] = $row["product_name"];
+	$sub_array[] = $image;
     $sub_array[] = $row["product_price"];
 	$sub_array[] = '<button id="'.$row["id"].'" class="btn btn-danger delete">Delete</button>';
 	$data[] = $sub_array;

@@ -121,4 +121,24 @@ class Product_Classification{
             return false;
         }
     }
+
+    public function find_by_classification($classification = "")
+    {
+        $query = "SELECT * FROM ".$this->table_name." "; 
+        $query .= "WHERE classification = :classification LIMIT 1";
+
+        //Prepare statement 
+        $stmt = $this->conn->prepare($query);
+
+        // Execute query
+        if($stmt->execute(array('classification'=>$classification))){
+            // fetch classification
+            $classification = $stmt->fetch(PDO::FETCH_ASSOC);
+            // Set Classification
+            return $classification;
+            
+        }else{
+            return false;
+        }
+    }
 }

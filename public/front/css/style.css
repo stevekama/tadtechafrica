@@ -824,6 +824,13 @@ ol {
 	display: block;
 }
 
+.product-item .pi-pic img{
+	max-width: 100%;
+	/* width: 500px; */
+	height: 300px;
+	object-fit: fill;
+}
+
 .product-item .tag-new,
 .product-item .tag-sale {
 	position: absolute;
