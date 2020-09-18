@@ -24,6 +24,7 @@ class Customers_migration{
         $query .= "customer_image VARCHAR(200) NOT NULL, ";
         $query .= "customer_phone VARCHAR(200) NOT NULL, ";
         $query .= "customer_email VARCHAR(200) NOT NULL, ";
+        $query .= "customer_address VARCHAR(200) NOT NULL, ";
         $query .= "password VARCHAR(200) NOT NULL, ";
         $query .= "confirm_password VARCHAR(200) NOT NULL, ";
         $query .= "forgot_code VARCHAR(200) NOT NULL, ";

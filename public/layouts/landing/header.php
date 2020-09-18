@@ -22,6 +22,8 @@ $categories = new Categories();
 
 	<!-- Libraries -->
 	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/bootstrap.min.css"/>
+	<!-- Toastr -->
+	<link rel="stylesheet" href="<?php echo public_url(); ?>back/plugins/toastr/toastr.min.css">
 	
 	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/slicknav.min.css"/>
 	<link rel="stylesheet" href="<?php echo public_url(); ?>front/css/jquery-ui.min.css"/>
@@ -67,7 +69,7 @@ $categories = new Categories();
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="#">Sign</a> In or <a href="#">Create Account</a>
+								<a href="<?php echo base_url(); ?>customers/login.php">Sign</a> In or <a href="<?php echo base_url(); ?>customers/login.php">Create Account</a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">

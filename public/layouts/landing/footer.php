@@ -100,6 +100,10 @@
 		<!--====== Javascripts & Jquery ======-->
 		<script src="<?php echo public_url(); ?>front/js/jquery-3.2.1.min.js"></script>
 		<script src="<?php echo public_url(); ?>front/js/bootstrap.min.js"></script>
+		<!-- SweetAlert2 -->
+		<script src="<?php echo public_url(); ?>back/plugins/sweetalert2/sweetalert2.min.js"></script>
+		<!-- Toastr -->
+		<script src="<?php echo public_url(); ?>back/plugins/toastr/toastr.min.js"></script>
 		<script src="<?php echo public_url(); ?>front/js/jquery.slicknav.min.js"></script>
 		<script src="<?php echo public_url(); ?>front/js/owl.carousel.min.js"></script>
 		<script src="<?php echo public_url(); ?>front/js/jquery.nicescroll.min.js"></script>
@@ -119,7 +123,7 @@
 					success: function(data) {
 						if (data.message == "noCartItems") {
 							$('#numCartItems').html(0);
-						}else{
+						} else {
 							$('#numCartItems').html(data.total_items);
 							$('#loadCartItems').html(data.cart_details);
 							$('#loadTotalCart').html(data.total_price);
@@ -142,7 +146,7 @@
 						},
 						dataType: "json",
 						success: function(data) {
-							if(data.message == "success"){
+							if (data.message == "success") {
 								find_cart_details();
 								window.location.href = "<?php echo base_url(); ?>landing/cart.php";
 							}

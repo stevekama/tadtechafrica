@@ -37,7 +37,7 @@ if($find_customer_email){
     echo json_encode($data);
     die();
 }
-
+$customers->customer_address = "NULL";
 $customers->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $customers->confirm_password = password_hash($_POST['confirm'], PASSWORD_DEFAULT);
 $customers->created_date = $d->format("Y-m-d H:i:s");

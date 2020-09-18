@@ -15,6 +15,7 @@ class Customers{
     public $customer_image;
     public $customer_phone;
     public $customer_email;
+    public $customer_address;
     public $password;
     public $confirm_password;
     public $forgot_code;
@@ -32,12 +33,14 @@ class Customers{
         $query = "";
         if(empty($this->id)){
             $query .= "INSERT INTO ".$this->table_name."(";
-            $query .= "customer_fullnames, customer_phone, customer_email, "; 
-            $query .= "customer_image, password, confirm_password, forgot_code, ";
+            $query .= "customer_fullnames, customer_image, customer_phone, "; 
+            $query .= "customer_email, customer_address, "; 
+            $query .= "password, confirm_password, forgot_code, ";
             $query .= "created_date, edited_date";
             $query .= ")VALUES(";
-            $query .= ":customer_fullnames, :customer_phone, :customer_email, "; 
-            $query .= ":customer_image, :password, :confirm_password, :forgot_code, ";
+            $query .= ":customer_fullnames, :customer_image, :customer_phone, "; 
+            $query .= ":customer_email, :customer_address, "; 
+            $query .= ":password, :confirm_password, :forgot_code, ";
             $query .= ":created_date, :edited_date";
             $query .= ")";
 
@@ -54,6 +57,7 @@ class Customers{
         $this->customer_image = htmlentities($this->customer_image);
         $this->customer_phone = htmlentities($this->customer_phone);
         $this->customer_email = htmlentities($this->customer_email);
+        $this->customer_address = htmlentities($this->customer_address);
         $this->password = htmlentities($this->password);
         $this->forgot_code = htmlentities($this->forgot_code);
         $this->confirm_password = htmlentities($this->confirm_password);
@@ -68,6 +72,7 @@ class Customers{
         $stmt->bindParam(':customer_image', $this->customer_image);
         $stmt->bindParam(':customer_phone', $this->customer_phone);
         $stmt->bindParam(':customer_email', $this->customer_email);
+        $stmt->bindParam(':customer_address', $this->customer_address);
         $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':confirm_password', $this->confirm_password);
         $stmt->bindParam(':forgot_code', $this->forgot_code);
@@ -88,9 +93,10 @@ class Customers{
         $query = "";
         if(!empty($this->id)){
             $query .= "UPDATE ".$this->table_name." SET ";
-            $query .= "customer_fullnames=:customer_fullnames, customer_phone=:customer_phone, ";
-            $query .= "customer_email=:customer_email, customer_image=:customer_image, "; 
-            $query .= "forgot_code = :forgot_code, created_date=:created_date, edited_date=:edited_date ";
+            $query .= "customer_fullnames = :customer_fullnames, customer_image = :customer_image, customer_phone = :customer_phone, "; 
+            $query .= "customer_email = :customer_email, customer_address = :customer_address, "; 
+            $query .= "password = :password, confirm_password = :confirm_password, forgot_code = :forgot_code, ";
+            $query .= "created_date = :created_date, edited_date = :edited_date";
             $query .= "WHERE id = :id";
         }
 
@@ -105,6 +111,7 @@ class Customers{
         $this->customer_image = htmlentities($this->customer_image);
         $this->customer_phone = htmlentities($this->customer_phone);
         $this->customer_email = htmlentities($this->customer_email);
+        $this->customer_address = htmlentities($this->customer_address);
         $this->forgot_code = htmlentities($this->forgot_code);
         $this->created_date = htmlentities($this->created_date);
         $this->edited_date = htmlentities($this->edited_date);
@@ -117,6 +124,7 @@ class Customers{
         $stmt->bindParam(':customer_image', $this->customer_image);
         $stmt->bindParam(':customer_phone', $this->customer_phone);
         $stmt->bindParam(':customer_email', $this->customer_email);
+        $stmt->bindParam(':customer_address', $this->customer_address);
         $stmt->bindParam(':forgot_code', $this->forgot_code);
         $stmt->bindParam(':created_date', $this->created_date);
         $stmt->bindParam(':edited_date', $this->edited_date);
