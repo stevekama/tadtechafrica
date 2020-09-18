@@ -47,7 +47,7 @@ require_once('../public/layouts/landing/header.php'); ?>
                         if (count($sys_categories) > 0) {
                             foreach ($sys_categories as $sys_category) { ?>
                                 <li>
-                                    <a href="#" id="categoryProductsBtn">
+                                    <a href="<?php echo base_url(); ?>landing/categories.php?category=<?php echo htmlentities($sys_category['id']); ?>">
                                         <?php echo htmlentities($sys_category['category_name']); ?>
                                     </a>
                                 </li>

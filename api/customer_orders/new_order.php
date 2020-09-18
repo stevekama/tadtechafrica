@@ -62,26 +62,25 @@ if($order->save()){
 
 // update cart items order id
 // find in cart where status is new and customer id
-
-
-$cart_items = $cart->find_cart_items_by_cart_status($customer_id, $cart_status);
-
-if(count($cart_items) > 0){
-    foreach($cart_items as $item){
-        // $data['item'] = $item;
-        $cart->id = $item['id'];
-        $cart->customer_id = $item['customer_id'];
-        $cart->order_id = $data['order_id'];
-        $cart->product_id = $item['product_id'];
-        $cart->quantity = $item['quantity'];
-        $cart->item_price = $item['item_price'];
-        $cart->total_price = $item['total_price'];
-        $cart->loginstatus = $item['loginstatus'];
-        $cart->cart_status = "ORDERED";
-        $cart->created_date = $item['created_date'];
-        $cart->edited_date = $item['edited_date'];
-        if($cart->save()){
-            $success[] = "message";
+if($data['message'] == "orderCreated"){
+    $cart_items = $cart->find_cart_items_by_cart_status($customer_id, $cart_status);
+    if(count($cart_items) > 0){
+        foreach($cart_items as $item){
+            // $data['item'] = $item;
+            $cart->id = $item['id'];
+            $cart->customer_id = $item['customer_id'];
+            $cart->order_id = $data['order_id'];
+            $cart->product_id = $item['product_id'];
+            $cart->quantity = $item['quantity'];
+            $cart->item_price = $item['item_price'];
+            $cart->total_price = $item['total_price'];
+            $cart->loginstatus = $item['loginstatus'];
+            $cart->cart_status = "ORDERED";
+            $cart->created_date = $item['created_date'];
+            $cart->edited_date = $item['edited_date'];
+            if($cart->save()){
+                $success[] = "message";
+            }
         }
     }
 }

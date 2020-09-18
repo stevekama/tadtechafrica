@@ -45,7 +45,6 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
     }
 
     // check if user is logged in and cart items == FULL
-    
     if($customer_id > 0 && $cart_status == "FULL"){
         // update the fields: customer id, logginstatus and cart_items == EMPTY
         // find cart items by loggedinstatus
@@ -69,49 +68,53 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
         $_SESSION['cart_items'] = "EMPTY";
 
     }
-
+    
     // Read cart items for customer
     $cart_status = "NEW";
     $cart_items = $cart->find_cart_items_by_cart_status($customer_id, $cart_status);
 
     $data['total_items'] = count($cart_items);
     // loop through cart items and display them
-    $output = '';
+    $output = '<div class="cart-table-warp">';
     if(count($cart_items) > 0){
-        $output .= '<ul class="cart_list">';
+        $output .= '<table>';
+        $output .= '<thead>';
+        $output .= '<tr>';
+        $output .= '<th class="product-th">Product</th>';
+        $output .= '<th class="quy-th">Quantity</th>';
+        // $output .= '<th class="size-th">Price</th>';
+        $output .= '<th class="total-th">Total Price</th>';
+        $output .= '</tr>';
+        $output .= '</thead>';
+        $output .= '<tbody>';
         foreach($cart_items as $item){
-            $output .= '<li class="cart_item clearfix">';
-            $output .= '<div class="cart_item_image">';
             $current_product = $products->find_product_by_id($item['product_id']);
-            $output .= '<img src="'.public_url().'storage/products/'.$current_product["product_image"].'" alt="Product">';
+            $output .= '<tr>';
+
+            $output .= ' <td class="product-col">';
+            $output .= '<img src="'.public_url().'storage/products/'.$current_product["product_image"].'" alt="Item Image">';
+            $output .= '<div class="pc-title">';
+            $output .= '<h4>'.htmlentities($current_product['product_name']).'</h4>';
+            $output .= '<p>KSHS.'.htmlentities($item["item_price"]).'</p>';
             $output .= '</div>';
-            $output .= '<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">';
-            $output .= '<div class="cart_item_name cart_info_col">';
-            $output .= '<div class="cart_item_title">Name</div>';
-            $output .= '<div class="cart_item_text">'.$current_product["product_name"].'</div>';
+            $output .= '</td>';
+
+            $output .= '<td class="quy-col">';
+            $output .= '<div class="quantity">';
+            $output .= htmlentities($item["quantity"]);
             $output .= '</div>';
-            $output .= '<div class="cart_item_quantity cart_info_col">';
-            $output .= '<div class="cart_item_title">Quantity</div>';
-            $output .= '<div class="cart_item_text">'.$item["quantity"].'</div>';
-            $output .= '</div>';
-            $output .= '<div class="cart_item_price cart_info_col">';
-            $output .= '<div class="cart_item_title">Price</div>';
-            $output .= '<div class="cart_item_text">KSHS.'.$item["item_price"].'</div>';
-            $output .= '</div>';
-            $output .= '<div class="cart_item_total cart_info_col">';
-            $output .= '<div class="cart_item_title">Total</div>';
-            $output .= '<div class="cart_item_text">KSHS.'.$item["total_price"].'</div>';
-            $output .= '</div>';
-            $output .= '<div class="cart_item_total cart_info_col">';
-            $output .= '<div class="cart_item_title">Remove</div>';
-            $output .= '<div class="cart_item_text">';
-            $output .= '<a href="#" id="'.$item["id"].'" class="btn btn-link remove_item">Delete</a>';
-            $output .= '</div>';
-            $output .= '</div>';
-            $output .= '</div></li>';
+            $output .= '</td>';
+
+            $output .= '<td class="total-col">';
+            $output .= '<h4>KSHS'.$item["total_price"].'</h4>';
+            $output .= '</td>';
+
+            $output .= '</tr>';
         }
-        $output .= '</ul>';
+        $output .= '</tbody>';
+        $output .= '</table>';
     }
+    $output .= '</div>';
     $data['cart_details'] = $output;
     // read total price 
     $cart_prices = $cart->find_total_price_cart_item_by_customer_id_and_cart_status($customer_id, "NEW");
@@ -120,7 +123,7 @@ if($_POST['action'] == "FETCH_CART_ITEMS"){
         $total += $total_price['total'];
     }
 
-    $data['total_price'] = $total;
+    $data['total_price'] = 'KSHS'.$total;
 
     echo json_encode($data);
 }

@@ -72,9 +72,11 @@ $categories = new Categories();
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
-									<span>0</span>
+									<span id="numCartItems"></span>
 								</div>
-								<a href="#">Shopping Cart</a>
+								<a href="<?php echo base_url(); ?>landing/cart.php">
+									Shopping Cart
+								</a>
 							</div>
 						</div>
 					</div>

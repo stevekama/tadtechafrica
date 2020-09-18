@@ -1,51 +1,54 @@
 <?php
 require_once('../init/initialization.php');
 $title = "TadTechAfrica || Get upto date with the lattest tech";
+
 $page = "contact";
+
 $classifications = new Product_Classification();
+
 $products = new Products();
+
 require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 ?>
+
 
 <!-- Page info -->
 <div class="page-top-info">
     <div class="container">
-        <h4>Contact</h4>
+        <h4>Your cart</h4>
         <div class="site-pagination">
             <a href="<?php echo base_url(); ?>index.php">Home</a> /
-            <a href="<?php echo base_url(); ?>landing/contact.php">Contact</a>
+            <a href="<?php echo base_url(); ?>landing/cart.php">Your cart</a>
         </div>
     </div>
 </div>
 <!-- Page info end -->
 
-<!-- Contact section -->
-<section class="contact-section">
+<!-- cart section end -->
+<section class="cart-section spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 contact-info">
-                <h3>Get in touch</h3>
-                <p>Imenti House, Nairobi Kenya</p>
-                <p>+254 793033110</p>
-                <p>info@tadtechafrica.com</p>
-                <div class="contact-social">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
+            <div class="col-lg-8">
+                <div class="cart-table">
+                    <h3>Your Cart</h3>
+                    <div id="loadCartItems" class="table-responsive"></div>
+                    <div class="total-cost">
+                        <h6>Total <span id="loadTotalCart"></span></h6>
+                    </div>
                 </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your name">
-                    <input type="text" placeholder="Your e-mail">
-                    <input type="text" placeholder="Subject">
-                    <textarea placeholder="Message"></textarea>
-                    <button class="site-btn">SEND NOW</button>
-                </form>
+            </div>
+            <div class="col-lg-4 card-right">
+                <!-- <form class="promo-code-form">
+                    <input type="text" placeholder="Enter promo code">
+                    <button>Submit</button>
+                </form> -->
+                <a href="#!" id="proceedToPaymentsBtn" class="site-btn">Proceed to checkout</a>
+                <a href="<?php echo base_url(); ?>index.php" class="site-btn sb-dark">Continue shopping</a>
             </div>
         </div>
     </div>
-    <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14376.077865872314!2d-73.879277264103!3d40.757667781624285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1546528920522" style="border:0" allowfullscreen></iframe></div>
 </section>
-<!-- Contact section end -->
+<!-- cart section end -->
 
 <!-- Related product section -->
 <section class="related-product-section spad">
@@ -86,3 +89,25 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 <!-- Related product section end -->
 
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
+
+<script>
+    $(document).ready(function(){
+       $(document).on('click', '#proceedToPaymentsBtn', function(e){
+           e.preventDefault();
+           $.ajax({
+               url:"<?php echo base_url(); ?>api/customer_orders/new_order.php",
+               type:"POST",
+               dataType:"json",
+               success:function(data){
+                   if(data.message == "success"){
+                       window.location.href = "<?php echo base_url(); ?>landing/checkout.php";
+                   }
+
+                   if(data.message == "userNotLoggedIn"){
+                       window.location.href = "<?php echo base_url(); ?>customers/login.php";
+                   }
+               }
+           });
+       });
+    });
+</script>
