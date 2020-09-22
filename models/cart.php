@@ -141,6 +141,34 @@ class Cart{
         }
     }
 
+    public function find_sum_cart_items_by_customer_id_and_order_id($customer_id = 0, $order_id = 0)
+    {
+        $query  = "SELECT SUM(total_price) total FROM ".$this->table_name." ";
+        $query .= "WHERE customer_id = :customer_id AND order_id = :order_id ";
+        $query .= "ORDER BY cart.id DESC";
+
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // clean up
+        $customer_id = htmlentities($customer_id);
+        $order_id = htmlentities($order_id);
+
+        // execute query
+        if($stmt->execute(array("customer_id"=>$customer_id, "order_id"=>$order_id))){
+            // fetch data
+            $items_object = array();
+            $count_items = $stmt->rowCount();
+            if($count_items > 0){
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    $items_object[] = $row;
+                }
+            }
+
+            return $items_object;
+        }
+    }
+
     public function find_cart_item_by_customer_id($customer_id = 0)
     {
         $query = "SELECT * FROM ".$this->table_name." ";

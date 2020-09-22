@@ -135,25 +135,30 @@
 			$(document).ready(function() {
 				find_cart_details();
 
-				$(document).on('click', '.addProductToCart', function(e) {
+				$(document).on('click', '.viewProductBtn', function(e){
 					e.preventDefault();
 					var product_id = $(this).attr("id");
+					var action = "FETCH_PRODUCT";
 					$.ajax({
-						url: "<?php echo base_url(); ?>api/cart/new_cart_item.php",
+						url: "<?php echo base_url(); ?>api/products/products.php",
 						type: "POST",
 						data: {
+							action:action,
 							product_id: product_id
 						},
 						dataType: "json",
 						success: function(data) {
-							if (data.message == "success") {
-								find_cart_details();
-								window.location.href = "<?php echo base_url(); ?>landing/cart.php";
+							if(data.message == "errorProduct"){
+								toastr.error('The product selected is unavailable.');
+								return false;
+							}else{
+								var p_id = $.trim(data.id);
+								localStorage.setItem("product_id", p_id);
+								window.location.href = "<?php echo base_url(); ?>landing/product_details.php?product="+p_id;
 							}
 						}
 					});
-
-				})
+				});
 			});
 		</script>
 		</body>

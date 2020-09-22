@@ -10,7 +10,6 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 
 <!-- Hero section -->
 <section class="hero-section">
-
 	<div class="hero-slider owl-carousel">
 		<?php $product_promotions = $promotions->find_all(); ?>
 		<?php if (count($product_promotions) > 0) {
@@ -25,8 +24,8 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 								<h2><?php echo htmlentities($current_product['product_name']) ?></h2>
 								<p><?php echo htmlentities($current_product['product_description']) ?></p>
 								<p>KSHS.<?php echo htmlentities($current_product['product_price']) ?></p>
-								<a href="<?php echo base_url(); ?>landing/products.php" class="site-btn sb-line">DISCOVER</a>
-								<a href="#" id="<?php echo htmlentities($current_product['id']) ?>" class="site-btn sb-white addProductToCart">ADD TO CART</a>
+								<a href="<?php echo base_url(); ?>landing/products.php" class="site-btn sb-line">Shop More</a>
+								<a href="#" id="<?php echo htmlentities($current_product['id']) ?>" class="site-btn sb-white viewProductBtn">View Product</a>
 							</div>
 						</div>
 						<!-- <div class="offer-card text-white">
@@ -95,7 +94,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 						<div class="pi-pic">
 							<img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
 							<div class="pi-links">
-								<a href="#" id="<?php echo htmlentities($product['id']); ?>" class="add-card addProductToCart"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="#" id="<?php echo htmlentities($product['id']); ?>" class="add-card viewProductBtn"><i class="flaticon-bag"></i><span> VIEW PRODUCT</span></a>
 								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
 							</div>
 						</div>
@@ -143,7 +142,7 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
 							<div class="pi-pic">
 								<img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
 								<div class="pi-links">
-									<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+									<a href="#" class="add-card viewProductBtn"><i class="flaticon-bag"></i><span>VIEW PRODUCT</span></a>
 									<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
 								</div>
 							</div>

@@ -1,186 +1,223 @@
 <?php
 require_once('../init/initialization.php');
-$title = "TadTechAfrica || Get upto date with the lattest tech";
 $back_url = base_url();
 if (!isset($_GET['product'])) {
     redirect_to(base_url());
 }
+
 $product_id = htmlentities($_GET['product']);
+
 $products = new Products();
+
 $current_product = $products->find_product_by_id($product_id);
+
 if (!$current_product) {
     redirect_to(base_url());
 }
+
+$classification = new Product_Classification();
+
+$classification_name = htmlentities('New Arrivals');
+
+$current_classification = $classification->find_by_classification($classification_name);
+
+if (!$current_classification) {
+    redirect_to(base_url());
+}
+
+$title = "TadTechAfrica || Get upto date with the lattest tech";
 $page = "product";
 require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
-
-// find all products 
-$related_products = $products->find_products_by_category_id($current_product['category_id']);
 ?>
-
-<div class="single_product">
+<!-- Page info -->
+<div class="page-top-info">
     <div class="container">
+        <h4><?php echo htmlentities($current_product['product_name']); ?></h4>
+        <div class="site-pagination">
+            <a href="<?php echo base_url(); ?>index.php">Home</a> /
+            <a href="<?php echo base_url(); ?>landing/products.php">Shop More</a>
+        </div>
+    </div>
+</div>
+<!-- Page info end -->
+
+<!-- product section -->
+<section class="product-section">
+    <div class="container">
+        <div class="back-link">
+            <a href="<?php echo base_url(); ?>landing/products.php"> &lt;&lt; Back to Products</a>
+        </div>
         <div class="row">
-
-            <!-- Images -->
-            <div class="col-lg-2 order-lg-1 order-2">
-                <ul class="image_list">
-                    <li data-image="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>">
-                        <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>" alt="">
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Selected Image -->
-            <div class="col-lg-5 order-lg-2 order-1">
-                <div class="image_selected">
-                    <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>" alt="">
+            <div class="col-lg-6">
+                <div class="product-pic-zoom">
+                    <img class="product-big-img" src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>" alt="">
+                </div>
+                <div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+                    <div class="product-thumbs-track">
+                        <div class="pt active" data-imgbigurl="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>">
+                            <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($current_product['product_image']); ?>" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Description -->
-            <div class="col-lg-5 order-3">
-                <div class="product_description">
-                    <?php
-                    $categories = new Categories();
-                    $current_category = $categories->find_category_by_id($current_product['category_id']);
-                    ?>
-                    <div class="product_category">
-                        <?php echo htmlentities($current_category['category_name']); ?>
+            <div class="col-lg-6 product-details">
+                <h2 class="p-title">
+                    <?php echo htmlentities($current_product['product_name']); ?>
+                </h2>
+                <h3 class="p-price">KSHS<?php echo htmlentities($current_product['product_price']) ?></h3>
+                <!-- <h4 class="p-stock">Available: <span>In Stock</span></h4> -->
+                <div class="p-rating">
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o fa-fade"></i>
+                </div>
+                <div class="p-review">
+                    <a href="">3 reviews</a>|<a href="">Add your review</a>
+                </div>
+                <!-- <div class="fw-size-choose">
+                    <p>Size</p>
+                    <div class="sc-item">
+                        <input type="radio" name="sc" id="xs-size">
+                        <label for="xs-size">32</label>
                     </div>
-                    <div class="product_name">
-                        <?php echo htmlentities($current_product['product_name']); ?>
+                    <div class="sc-item">
+                        <input type="radio" name="sc" id="s-size">
+                        <label for="s-size">34</label>
                     </div>
-                    <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                    <div class="product_text">
-                        <p>
-                            <?php echo htmlentities($current_product['product_description']); ?>
-                        </p>
+                    <div class="sc-item">
+                        <input type="radio" name="sc" id="m-size" checked="">
+                        <label for="m-size">36</label>
                     </div>
-                    <div class="order_info d-flex flex-row">
-                        <form id="addToCartForm">
-                            <div class="clearfix" style="z-index: 1000;">
-                                <!-- Product Quantity -->
-                                <div class="product_quantity clearfix">
-                                    <span>Quantity: </span>
-                                    <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-                                    <div class="quantity_buttons">
-                                        <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fa fa-chevron-up"></i></div>
-                                        <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down"></i></div>
-                                    </div>
-                                </div>
+                    <div class="sc-item">
+                        <input type="radio" name="sc" id="l-size">
+                        <label for="l-size">38</label>
+                    </div>
+                    <div class="sc-item disable">
+                        <input type="radio" name="sc" id="xl-size" disabled>
+                        <label for="xl-size">40</label>
+                    </div>
+                    <div class="sc-item">
+                        <input type="radio" name="sc" id="xxl-size">
+                        <label for="xxl-size">42</label>
+                    </div>
+                </div> -->
+                <div class="quantity">
+                    <p>Quantity</p>
+                    <div class="pro-qty">
+                        <input type="text" id="productQuantity" value="1">
+                    </div>
+                </div>
+                <a href="#" id="<?php echo htmlentities($current_product['id']); ?>" class="site-btn addProductToCart">ADD TO CART</a>
+                <div id="accordion" class="accordion-area">
+                    <div class="panel">
+                        <div class="panel-header" id="headingOne">
+                            <button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
+                        </div>
+                        <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="panel-body">
+                                <p><?php echo htmlentities($current_product['product_description']); ?></p>
                             </div>
-
-                            <div class="product_price">
-                                KSHS.<?php echo htmlentities($current_product['product_price']); ?>
-                            </div>
-                            <div class="button_container">
-                                <button type="submit" class="button cart_button">Add to Cart</button>
-                                <div id="<?php echo htmlentities($current_product['id']) ?>" class="product_fav productAddToWhishlist">
-                                    <i class="fa fa-heart"></i>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
+                    <!-- <div class="panel">
+                        <div class="panel-header" id="headingTwo">
+                            <button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">care details </button>
+                        </div>
+                        <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="panel-body">
+                                <img src="./img/cards.png" alt="">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="panel">
+                        <div class="panel-header" id="headingThree">
+                            <button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">shipping & Returns</button>
+                        </div>
+                        <div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="panel-body">
+                                <h4>7 Days Returns</h4>
+                                <p>Cash on Delivery Available<br>Home Delivery <span>3 - 4 days</span></p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="social-sharing">
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                    <a href=""><i class="fa fa-pinterest"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-youtube"></i></a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+<!-- product section end -->
 
-<div class="viewed">
+<!-- RELATED PRODUCTS section -->
+<section class="related-product-section">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="viewed_title_container">
-                    <h3 class="viewed_title">Related Products</h3>
-                    <div class="viewed_nav_container">
-                        <div class="viewed_nav viewed_prev"><i class="fa fa-chevron-left"></i></div>
-                        <div class="viewed_nav viewed_next"><i class="fa fa-chevron-right"></i></div>
-                    </div>
-                </div>
-
-                <div class="viewed_slider_container">
-
-                    <!-- Recently Viewed Slider -->
-                    <div class="owl-carousel owl-theme viewed_slider">
-                        <?php if (count($related_products) > 0) { ?>
-                            <?php foreach ($related_products as $product) { ?>
-                                <!-- Recently Viewed Item -->
-                                <div id="<?php echo htmlentities($product['id']); ?>" class="owl-item productDetailsBtn">
-                                    <div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                        <div class="viewed_image">
-                                            <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
-                                        </div>
-                                        <div class="viewed_content text-center">
-                                            <div class="viewed_price">
-                                                KSHS.<?php echo htmlentities($product['product_price']); ?>
-                                            </div>
-                                            <div class="viewed_name">
-                                                <a href="#">
-                                                    <?php echo htmlentities($product['product_name']); ?>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <ul class="item_marks">
-                                            <li class="item_mark item_new">
-                                                <?php echo htmlentities($product['product_status']); ?>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_3.jpg" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$225</div>
-                                        <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
+        <div class="section-title">
+            <h2>RELATED PRODUCTS</h2>
+        </div>
+        <div class="product-slider owl-carousel">
+            <?php $sys_products = $products->find_products_by_classification_id($current_classification['id']);
+            if (count($sys_products) > 0) {
+                foreach ($sys_products as $product) { ?>
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="<?php echo public_url(); ?>storage/products/<?php echo htmlentities($product['product_image']); ?>" alt="">
+                            <div class="pi-links">
+                                <a href="#" id="<?php echo  htmlentities($product['id']); ?>" class="add-card viewProductBtn">
+                                    <i class="flaticon-bag"></i><span>VIEW PRODUCT</span>
+                                </a>
+                                <a href="#" id="<?php echo  htmlentities($product['id']); ?>" class="wishlist-btn">
+                                    <i class="flaticon-heart"></i>
+                                </a>
                             </div>
-                        <?php } ?>
+                        </div>
+                        <div class="pi-text">
+                            <h6>KSHS<?php echo htmlentities($product['product_price']); ?></h6>
+                            <p><?php echo htmlentities($product['product_name']); ?> </p>
+                        </div>
                     </div>
+                <?php } ?>
+            <?php }
+            ?>
 
-                </div>
-            </div>
         </div>
     </div>
-</div>
+</section>
+<!-- RELATED PRODUCTS section end -->
 
 <?php require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'footer.php'); ?>
 <script>
-    $(document).ready(function(){
-        $('#addToCartForm').submit(function(event){
-            event.preventDefault();
-            var product_id = $.trim(localStorage.getItem('product_id'));
-            var quantity = $('#quantity_input').val();
-            
-            if(quantity == 0){
-                toastr.error('Please add quantity of product you need');
-                return false;
-            }
+    $(document).ready(function() {
 
-            var dataToSend = "product_id="+product_id+"&quantity="+quantity;
+        $(document).on('click', '.addProductToCart', function(event) {
+            var product_id = $(this).attr("id");
+            var quantity = $('#productQuantity').val();
             $.ajax({
-                url:"<?php echo base_url(); ?>api/cart/new_cart_item.php",
-                type:"POST",
-                data:dataToSend,
-                dataType:"json",
-                success:function(data){
-                    if(data.message == "success"){
-                        toastr.success('Product has been successfully added to cart.');
-                        window.location.reload();
+                url: "<?php echo base_url(); ?>api/cart/new_cart_item.php",
+                type: "POST",
+                data: {
+                    product_id: product_id, 
+                    quantity:quantity
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.message == "success") {
+                        toastr.success('Product has been successfully added to cart');
+                        window.location.href = "<?php echo base_url(); ?>landing/cart.php";
                     }
+
                     if(data.message == "productAdded"){
-                        toastr.error('Product already added in cart');
-                        return false;
+                        toastr.error('Product selected already added in cart');
+                        return false; 
                     }
                 }
             });

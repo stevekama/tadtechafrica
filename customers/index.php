@@ -4,6 +4,7 @@ $url = base_url() . 'index.php';
 if (!$session->is_logged_in()) {
     redirect_to($url);
 }
+
 if (!$session->check_user()) {
     $session->logout();
     redirect_to($url);
@@ -13,6 +14,7 @@ if ($session->user_type != "CUSTOMER") {
     $session->logout();
     redirect_to($url);
 }
+
 $customers = new Customers();
 $customer_id = htmlentities($session->user_id);
 $current_customer = $customers->find_customer_by_id($customer_id);
@@ -83,18 +85,43 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                         </a>
                     </li>
                 </ul>
-
+                <br>
             </div>
 
             <div class="col-lg-9 contact-info">
                 <!-- general form elements -->
-                
                 <div id="customer_account" class="card card-primary">
                     <!-- form start -->
                     <div class="card-body table-responsive">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="table-responsive">
+                                    <h4>ACCOUNT DETAILS</h4>
+                                    <br>
+                                    <p>Your default account details:</p>
+                                    <table class="table table-striped table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Full Names:</th>
+                                                <td><?php echo htmlentities($current_customer['customer_fullnames']); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Phone Number:</th>
+                                                <td><?php echo htmlentities($current_customer['customer_phone']); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Email Address:</th>
+                                                <td><?php echo htmlentities($current_customer['customer_email']); ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="table-responsive">
+                                    <h4>ADDRESS BOOK</h4>
+                                    <br>
+                                    <p>Your default shipping address:</p>
                                     <table class="table table-striped table-bordered">
                                         <tbody>
                                             <tr>

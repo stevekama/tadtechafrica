@@ -1,5 +1,6 @@
 <?php
 require_once('../init/initialization.php');
+
 $title = "TadTechAfrica || Get upto date with the lattest tech";
 
 $page = "contact";
@@ -100,9 +101,10 @@ require_once(PUBLIC_PATH . DS . 'layouts' . DS . 'landing' . DS . 'header.php');
                dataType:"json",
                success:function(data){
                    if(data.message == "success"){
-                       window.location.href = "<?php echo base_url(); ?>landing/checkout.php";
+                       var orderId = $.trim(data.order_id);
+                       localStorage.setItem('order_id', orderId);
+                       window.location.href = "<?php echo base_url(); ?>landing/checkout.php?order="+orderId;
                    }
-
                    if(data.message == "userNotLoggedIn"){
                        window.location.href = "<?php echo base_url(); ?>customers/login.php";
                    }
